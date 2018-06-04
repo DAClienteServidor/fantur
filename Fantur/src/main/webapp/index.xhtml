@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:body>
+
+        <ui:composition template="./template/plantillaInicio.xhtml">
+
+            <ui:define name="body">
+                <p:panel id="basic" header="¿Queres ir a alentar a tu selección?" style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:graphicImage value="/resources/Imagenes/palacio.jpg" height="200px" width="250px"/>
+                        <h:panelGrid columns="1">
+                            <h:outputText
+                                value="No esperes más FANTUR S.A. te lleva a la Copa Mundial de la Fifa 2018 a disputarse en Rusia,
+                                para ello ofrecemos una gran variedad de paquetes turisticos incluyendo transporte, alojamiento, entradas
+                                a los partidos, excursiones y muchas cosas más."/>
+                            <h:outputText value="Podes reservar tus paquetes atravez de esta web o acercandote a alguna de nuestras oficinas."/>
+                            <h:outputText value="Para mas información puede contactarse con nosotros a traves de nuestras redes."
+                                          />
+                            <h:outputStylesheet library="css" name="theme.css"  />
+                            <h:panelGrid columns="4" cellpadding="20">
+                                <p:graphicImage value="/resources/Imagenes/twitter.png" height="50px" width="50px"/>  
+                                <p:graphicImage value="/resources/Imagenes/facebook.png" height="50px" width="50px"/> 
+                                <p:graphicImage value="/resources/Imagenes/gogle.png" height="50px" width="50px"/> 
+                                <p:graphicImage value="/resources/Imagenes/insta.png" height="50px" width="50px"/> 
+                            </h:panelGrid>    
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

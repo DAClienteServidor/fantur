@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition>
+        <h:form>  
+            <p:growl id="messages"/>
+
+            <p:menubar>
+                <p:menuitem value="  Inicio" url="./"/> 
+
+                <p:menuitem value="Paquetes" url="faces/paquetes.xhtml"/>
+
+                <p:submenu label="  Transportes">
+                    <p:menuitem value="Aereos" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                    <p:menuitem value="Colectivos" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                </p:submenu>
+
+                <p:submenu label="  Alojamientos">
+                    <p:menuitem value="Hoteles" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                    <p:menuitem value="Alquileres" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                    <p:menuitem value="Hostel" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                </p:submenu>
+
+                <p:submenu label="  Entretenimientos">
+                    <p:menuitem value="Partidos" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                    <p:menuitem value="Espectaculos" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                </p:submenu>
+
+                <p:menuitem value="  Contactanos"/>
+
+                <f:facet name="options">
+                    <p:commandButton type="button" value="Iniciar Sesion" icon="ui-icon-extlink" styleClass="boton" onclick="PF('dlg2').show();"/>
+
+                    <p:dialog header="Iniciar Sesion" widgetVar="dlg2" modal="true" height="250" width="500">
+                        <h:form>
+                            <p:messages autoUpdate="true"/>
+                            <h:panelGrid id="grid1" columns="2">
+                                <h:outputLabel for="txtUsuario" value="Usuario:"/>
+                                <p:inputText id="txtUsuario" required="true" value="#{loginControl.usuario.usuario}"/>
+                                <h:outputLabel for="txtClave" value="Contraseña:"/>
+                                <p:inputText id="txtClave" required="true" value="#{loginControl.usuario.contrasena}"/> 
+
+                                <h:column />
+                                <p:commandButton value="Iniciar Sesion" action="#{loginControl.iniciarSesion()}"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                </f:facet>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+</html>
