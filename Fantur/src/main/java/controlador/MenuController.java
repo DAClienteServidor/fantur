@@ -24,6 +24,9 @@ public class MenuController implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
         if (us != null) {
+            if (us.getRol().getRol() == "Administrador"){
+                return "./admin.xhtml";
+            }
             return "./menuRegistrado.xhtml";
         }
         return "./menuNoRegistrado.xhtml";

@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -61,9 +62,21 @@ public class Pasaje implements Serializable {
     private String origen;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "destino")
+    private String destino;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "hora")
     private String hora;
+    
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "precio")
+    private BigDecimal precio;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -77,6 +90,22 @@ public class Pasaje implements Serializable {
 
     public Pasaje(Integer id) {
         this.id = id;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
     }
 
     public Pasaje(Integer id, Date fechaIda, String origen, String hora, String tipo) {
