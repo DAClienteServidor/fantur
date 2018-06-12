@@ -5,35 +5,36 @@
  */
 package controlador;
 
-import dao.AlojamientoInterface;
+import dao.ContrataInterface;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import modelo.Alojamiento;
+import modelo.Contrata;
+
 /**
  *
  * @author usuario
  */
-@ManagedBean(name = "AloController")
+@ManagedBean(name = "ConController")
 @SessionScoped
-public class AlojamientosController {
+public class ContratosController {
     @EJB
-    private AlojamientoInterface ejbAlo;
-    private List<Alojamiento> alojamiento;
+    private ContrataInterface ejbCon;
+    private List<Contrata> contrata;
     
     @PostConstruct
     public void init(){
-        alojamiento = ejbAlo.findAll();
+        contrata = ejbCon.findAll();
     }
     
-    public List<Alojamiento> getAlojamiento() {
-        return alojamiento;
+    public List<Contrata> getContrato() {
+        return contrata;
     }
 
-    public void setAlojamiento(List<Alojamiento> alo) {
-        this.alojamiento = alo;
+    public void setContrato(List<Contrata> con) {
+        this.contrata = con;
     }
     
 }

@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+      xmlns:f="http://xmlns.jcp.org/jsf/core"          
+      xmlns:p="http://primefaces.org/ui">
+    
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <h:outputStylesheet name="/css/default.css"/>
+        <h:outputStylesheet name="/css/cssLayout.css"/>
         <title>Facelets Template</title>
-        <f:event type="preRenderView" listener="#{plantillaController.verificarSesion()}"/>
     </h:head>
 
     <h:body>
@@ -22,7 +22,17 @@
         <div>
             <div id="left">
                 <ui:insert name="left"></ui:insert>
-                
+                <h:form>
+                    <p:menu>
+                        <p:menuitem value="Gestionar Usuarios" url="./gesUsuarios.xhtml" icon="ui-icon-disk" />
+                        <p:menuitem value="Gestionar Roles" url="./gesRol.xhtml" icon="ui-icon-disk" />
+                        <p:menuitem value="Gestionar Contratos" url="./gesContratos.xhtml" icon="ui-icon-disk" />
+                        <p:menuitem value="Gestionar Paquetes" url="./gesPaquetes.xhtml" icon="ui-icon-disk" />
+                        <p:menuitem value="Gestionar Pasajes" url="./gesPasajes.xhtml" icon="ui-icon-disk" />
+                        <p:menuitem value="Gestionar Entretenimientos" url="./gesEntretenimiento.xhtml" icon="ui-icon-disk" />
+                        <p:menuitem value="Gestionar Alojamientos" url="./gesAlojamientos.xhtml" icon="ui-icon-disk" />    
+                    </p:menu>
+                </h:form>
             </div>
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>

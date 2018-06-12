@@ -11,33 +11,36 @@
         <ui:composition template="./../template/admin.xhtml">
 
             <ui:define name="content">
-                <h:form id="form">
+               <h:form id="form">
                     <p:growl id="msgs" showDetail="true" />
 
-                    <p:dataTable id="basicDT" var="p" value="#{PaqController.paquete}">
+                    <p:dataTable id="basicDT" var="p" value="#{PasController.pasaje}">
                         <f:facet name="header">
-                            Paquetes
+                            Pasajes
                         </f:facet>
                         <p:column headerText="Id">
-                            <h:outputText value="#{p.idpaquete}" />
+                            <h:outputText value="#{p.id}" />
                         </p:column>
-                        <p:column headerText="Nombre">
-                            <h:outputText value="#{p.nombre}" />
+                        <p:column headerText="Destino">
+                            <h:outputText value="#{p.destino}" />
                         </p:column>
-                        <p:column headerText="Fecha Expiracion">
-                            <h:outputText value="#{p.fechaExpiracion}" />
+                        <p:column headerText="Origen">
+                            <h:outputText value="#{p.origen}" />
+                        </p:column>
+                        <p:column headerText="Fecha Ida">
+                            <h:outputText value="#{p.fechaIda}" />
+                        </p:column>
+                        <p:column headerText="Hora">
+                            <h:outputText value="#{p.hora}" />
+                        </p:column>
+                        <p:column headerText="Fecha Vuelta">
+                            <h:outputText value="#{p.fechaVuelta}" />
                         </p:column>
                         <p:column headerText="Precio">
                             <h:outputText value="#{p.precio}" />
                         </p:column>
-                        <p:column headerText="Id Alojamiento">
-                            <h:outputText value="#{p.alojamiento}" />
-                        </p:column>
-                        <p:column headerText="Id Pasaje">
-                            <h:outputText value="#{p.pasaje}" />
-                        </p:column>
-                        <p:column headerText="Id Entretenimiento">
-                            <h:outputText value="#{p.entretenimiento}"/>
+                        <p:column headerText="Tipo">
+                            <h:outputText value="#{p.tipo}" />
                         </p:column>
                         <p:column style="width:32px;text-align: center">
                             <p:commandButton update="" oncomplete="" icon="ui-icon-search" title="View">

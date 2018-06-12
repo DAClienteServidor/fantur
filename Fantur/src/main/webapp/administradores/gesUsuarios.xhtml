@@ -2,9 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
@@ -14,30 +14,33 @@
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true" />
 
-                    <p:dataTable id="basicDT" var="p" value="#{PaqController.paquete}">
+                    <p:dataTable id="basicDT" var="p" value="#{UsuController.usuario}">
                         <f:facet name="header">
-                            Paquetes
+                            Usuarios
                         </f:facet>
-                        <p:column headerText="Id">
-                            <h:outputText value="#{p.idpaquete}" />
+                        <p:column headerText="DNI">
+                            <h:outputText value="#{p.dni}" />
                         </p:column>
                         <p:column headerText="Nombre">
                             <h:outputText value="#{p.nombre}" />
                         </p:column>
-                        <p:column headerText="Fecha Expiracion">
-                            <h:outputText value="#{p.fechaExpiracion}" />
+                        <p:column headerText="Rol">
+                            <h:outputText value="#{p.rol.rol}" />
                         </p:column>
-                        <p:column headerText="Precio">
-                            <h:outputText value="#{p.precio}" />
+                        <p:column headerText="Direccion">
+                            <h:outputText value="#{p.direccion}" />
                         </p:column>
-                        <p:column headerText="Id Alojamiento">
-                            <h:outputText value="#{p.alojamiento}" />
+                        <p:column headerText="Telefono">
+                            <h:outputText value="#{p.telefono}" />
                         </p:column>
-                        <p:column headerText="Id Pasaje">
-                            <h:outputText value="#{p.pasaje}" />
+                        <p:column headerText="Email">
+                            <h:outputText value="#{p.email}" />
                         </p:column>
-                        <p:column headerText="Id Entretenimiento">
-                            <h:outputText value="#{p.entretenimiento}"/>
+                        <p:column headerText="Usuario">
+                            <h:outputText value="#{p.usuario}" />
+                        </p:column>
+                        <p:column headerText="Contrasena">
+                            <h:outputText value="#{p.contrasena}" />
                         </p:column>
                         <p:column style="width:32px;text-align: center">
                             <p:commandButton update="" oncomplete="" icon="ui-icon-search" title="View">

@@ -14,30 +14,18 @@
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true" />
 
-                    <p:dataTable id="basicDT" var="p" value="#{PaqController.paquete}">
+                    <p:dataTable id="basicDT" var="p" value="#{RolController.rol}">
                         <f:facet name="header">
-                            Paquetes
+                            Roles
                         </f:facet>
-                        <p:column headerText="Id">
-                            <h:outputText value="#{p.idpaquete}" />
-                        </p:column>
                         <p:column headerText="Nombre">
-                            <h:outputText value="#{p.nombre}" />
+                            <h:outputText value="#{p.usuario.nombre}" />
                         </p:column>
-                        <p:column headerText="Fecha Expiracion">
-                            <h:outputText value="#{p.fechaExpiracion}" />
+                        <p:column headerText="DNI">
+                            <h:outputText value="#{p.usuarioDni}" />
                         </p:column>
-                        <p:column headerText="Precio">
-                            <h:outputText value="#{p.precio}" />
-                        </p:column>
-                        <p:column headerText="Id Alojamiento">
-                            <h:outputText value="#{p.alojamiento}" />
-                        </p:column>
-                        <p:column headerText="Id Pasaje">
-                            <h:outputText value="#{p.pasaje}" />
-                        </p:column>
-                        <p:column headerText="Id Entretenimiento">
-                            <h:outputText value="#{p.entretenimiento}"/>
+                        <p:column headerText="Rol">
+                            <h:outputText value="#{p.rol}" />
                         </p:column>
                         <p:column style="width:32px;text-align: center">
                             <p:commandButton update="" oncomplete="" icon="ui-icon-search" title="View">

@@ -16,19 +16,20 @@ import javax.faces.context.FacesContext;
 import modelo.Usuario;
 
 /**
- * Controla el login del usuario y el cerrar sesion 
+ * Controla el login del usuario y el cerrar sesion
+ *
  * @author Nico
  */
 @ManagedBean(name = "loginControl")
 @SessionScoped
-public class LoginControl implements Serializable{
-    
+public class LoginControl implements Serializable {
+
     @EJB
     private UsuarioInterface ejbUsuario;
     private Usuario usuario;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         usuario = new Usuario();
     }
 
@@ -39,26 +40,31 @@ public class LoginControl implements Serializable{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    public String iniciarSesion(){
-        String redireccion = null;
+
+    public String iniciarSesion() {
+        String rol;
         Usuario us;
-        try{
+        try {
             us = ejbUsuario.iniciarSesion(usuario);
-            if (us!=null) {
+            if (us != null) {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us); //Crea una sesion
-                redireccion = "index?faces-redirect=true";
-            }else{
-                FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Aviso","Usuario o clave erronea"));
-                  }    
+                rol = us.getRol().getRol();
+                if ( rol.equals("Administrador")) {
+                    return "./../administradores/gesPaquetes.xhtml";
+                } else {
+                   return "index?faces-redirect=true";
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario o clave erronea"));
+            }
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso","Error logueo"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "Error logueo"));
         }
-        return redireccion;
+        return "";
     }
-    
-    public String cerrarSesion(){
+
+    public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index?faces-redirect=true";
+        return "./index?faces-redirect=true";
     }
 }

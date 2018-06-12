@@ -5,35 +5,35 @@
  */
 package controlador;
 
-import dao.AlojamientoInterface;
+import dao.RolInterface;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import modelo.Alojamiento;
+import modelo.Rol;
+
 /**
  *
  * @author usuario
  */
-@ManagedBean(name = "AloController")
+@ManagedBean(name = "RolController")
 @SessionScoped
-public class AlojamientosController {
+public class RolesController {
     @EJB
-    private AlojamientoInterface ejbAlo;
-    private List<Alojamiento> alojamiento;
+    private RolInterface ejbRol;
+    private List<Rol> rol;
     
     @PostConstruct
     public void init(){
-        alojamiento = ejbAlo.findAll();
+        rol = ejbRol.findAll();
     }
     
-    public List<Alojamiento> getAlojamiento() {
-        return alojamiento;
+    public List<Rol> getRol() {
+        return rol;
     }
 
-    public void setAlojamiento(List<Alojamiento> alo) {
-        this.alojamiento = alo;
+    public void setUsuario(List<Rol> rol) {
+        this.rol = rol;
     }
-    
 }
