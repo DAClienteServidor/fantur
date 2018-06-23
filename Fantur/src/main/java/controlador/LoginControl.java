@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,8 +7,6 @@ package controlador;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.InetAddress;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -16,19 +14,14 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dao.UsuarioInterface;
 import modelo.Rol;
 import modelo.Usuario;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 /**
  * Controla el login del usuario y el cerrar sesion
@@ -41,11 +34,9 @@ public class LoginControl implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    protected static final Logger logger = LoggerFactory.getLogger(LoginControl.class);
-
     protected static final String LOGIN_PAGE = "login.jsf";
 
-    protected static final String LOGIN_ERROR_PAGE = "index.html";
+    protected static final String LOGIN_ERROR_PAGE = "loginError.html";
 
     public static final String JSF_REDIRECT = "?faces-redirect=true&amp;includeViewParams=true";
 
@@ -93,14 +84,17 @@ public class LoginControl implements Serializable {
             }
 
             this.authenticationError = false;
-            if (!this.usuario.getRol().getRol().equals("")) {
-                
-                this.rol = this.usuario.getRol();
-
-                return "/administradores/gesAlojamientos" + JSF_REDIRECT_ESCAPED;
-            } else {
-                request.getSession(false).invalidate();
-                this.authenticationError = true;
+            switch (this.usuario.getRol().getRol()) {
+                case "Administrador":
+                    this.rol = this.usuario.getRol();
+                    return "/administradores/gesAlojamientos" + JSF_REDIRECT_ESCAPED;
+                case "Usuario":
+                    this.rol = this.usuario.getRol();
+                    return "/usuarios/" + JSF_REDIRECT_ESCAPED;
+                default:
+                    request.getSession(false).invalidate();
+                    this.authenticationError = true;
+                    break;
             }
         } catch (ServletException e) {
             request.getSession(false).invalidate();
@@ -131,9 +125,9 @@ public class LoginControl implements Serializable {
             }
             externalContext.redirect(externalContext.getRequestContextPath() + "/index.html");
         } catch (IOException e) {
-            logger.error("Logout error: " + e.getMessage());
+         
         } catch (ServletException e) {
-            logger.error("Logout error: " + e.getMessage());
+            
         }
     }
     public String getUsername() {
