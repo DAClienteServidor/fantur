@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
     <body>
@@ -15,24 +16,26 @@
                     <p:fieldset legend="Datos personales" style="border-color: #045491">
                         <h:panelGrid columns="3" cellpadding="10" id="pgDatos">
                             <p:outputLabel for="txtNyP" value="Nombre y Apellido"/>
-                            <p:inputText id="txtNyP" required="true"/>
+                            <p:inputText id="txtNyP" required="true" value="#{registrar.usuario.nombre}" />
                             <p:message for="txtNyP"/>
 
                             <p:outputLabel for="txtDNI" value="DNI"/>
-                            <p:inputText id="txtDNI" required="true"/> 
+                            <p:inputText id="txtDNI" required="true" value="#{registrar.usuario.dni}"/> 
                             <p:message for="txtDNI"/>
 
                             <p:outputLabel for="txtDir" value="Direccion"/>
-                            <p:inputText id="txtDir" required="true"/>
+                            <p:inputText id="txtDir" required="true" value="#{registrar.usuario.direccion}"/>
                             <p:message for="txtDir"/>
 
                             <p:outputLabel for="txtTel" value="Telefono"/>
-                            <p:inputText id="txtTel" required="true"/>
+                            <p:inputText id="txtTel" required="true" value="#{registrar.usuario.telefono}"/>
                             <p:message for="txtTel"/>
 
                             <p:outputLabel for="txtCorreo" value="Correo electronico"/>
-                            <p:inputText id="txtCorreo" required="true"/>
+                            <p:inputText id="txtCorreo" required="true" value="#{registrar.usuario.email}"/>
                             <p:message for="txtCorreo"/>
+                            
+                         
                         </h:panelGrid>
                      </p:fieldset>
                     
@@ -42,12 +45,13 @@
                         <h:panelGrid columns="3" cellpadding="10">
                     
                             <p:outputLabel for="txtUsu" value="Usuario"/>
-                            <p:inputText id="txtUsu" required="true"/>
+                            <p:inputText id="txtUsu" required="true" value="#{registrar.usuario.usuario}"/>
                             <p:message for="txtUsu"/>
 
 
                             <p:outputLabel for="Clave1" value="Contraseña" />
-                            <p:password id="Clave1"  required="true" match="Clave2" feedback="true" promptLabel="Ingrese una contraseña"
+                            <p:password id="Clave1"  required="true" value="#{registrar.usuario.contrasena}"
+                                        match="Clave2" feedback="true" promptLabel="Ingrese una contraseña"
                                         validatorMessage="Las claves no coinciden" weakLabel="Bajo" strongLabel="Fuerte" goodLabel="Medio"/>
                             <p:message for="Clave1"/>
                             
@@ -56,7 +60,7 @@
 
                         </h:panelGrid>    
                 </p:fieldset> 
-                    <p:commandButton icon="ui-icon-check" value="Registrar" update="pgDatos, pgUsuario"></p:commandButton>
+                    <p:commandButton icon="ui-icon-check" value="Registrar" update="pgDatos, pgUsuario" actionListener="#{registrar.registrar()}" ></p:commandButton>
                 </h:form>
             </ui:define>
         </ui:composition>

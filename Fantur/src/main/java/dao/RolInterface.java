@@ -11,7 +11,7 @@ import modelo.Rol;
 
 /**
  *
- * @author usuario
+ * @author maria
  */
 @Local
 public interface RolInterface {
