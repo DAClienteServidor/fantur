@@ -57,4 +57,26 @@ public class UsuarioDAO extends DAO<Usuario> implements UsuarioInterface {
         return usuario;
     }
     
+    @Override
+    public Usuario findByUsuario(String username){
+        Usuario usuario = null;
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Usuario> cq = cb.createQuery(Usuario.class);
+
+            Root<Usuario> e = cq.from(Usuario.class);
+            
+            cq.where(cb.and(cb.equal(e.get("usuario"), username)));
+
+            Query query = em.createQuery(cq);
+            
+            List<Usuario> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                usuario = lista.get(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return usuario;
+    };
 }

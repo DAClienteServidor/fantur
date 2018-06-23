@@ -23,6 +23,8 @@ public interface UsuarioInterface {
     void remove(Usuario usuario);
 
     Usuario find(Object id);
+    
+    Usuario findByUsuario(String username);
 
     List<Usuario> findAll();
 

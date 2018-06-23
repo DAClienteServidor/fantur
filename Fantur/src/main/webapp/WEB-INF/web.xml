@@ -25,4 +25,41 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <security-constraint>
+        <display-name>Admin Only</display-name>
+        <web-resource-collection>
+            <web-resource-name>protected admin</web-resource-name>
+            <url-pattern>/administradores/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>has ROLE_ADMIN</description>
+            <role-name>Administrador</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>User Only</display-name>
+        <web-resource-collection>
+            <web-resource-name>protected users</web-resource-name>
+            <url-pattern>/usuarios/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>has ROLE_USER</description>
+            <role-name>Usuario</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!-- Login Config -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>dacs-security</realm-name>
+        <form-login-config>
+            <form-login-page>/Login.xhtml</form-login-page>
+            <form-error-page>/loginError.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <role-name>Administrador</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Usuario</role-name>
+    </security-role>
 </web-app>
