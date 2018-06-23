@@ -13,44 +13,96 @@
             <ui:define name="content">
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true" />
-
-                    <p:dataTable id="basicDT" var="p" value="#{UsuController.usuario}">
-                        <f:facet name="header">
-                            Usuarios
-                        </f:facet>
-                        <p:column headerText="DNI">
-                            <h:outputText value="#{p.dni}" />
-                        </p:column>
-                        <p:column headerText="Nombre">
-                            <h:outputText value="#{p.nombre}" />
-                        </p:column>
-                        <p:column headerText="Rol">
-                            <h:outputText value="#{p.rol.rol}" />
-                        </p:column>
-                        <p:column headerText="Direccion">
-                            <h:outputText value="#{p.direccion}" />
-                        </p:column>
-                        <p:column headerText="Telefono">
-                            <h:outputText value="#{p.telefono}" />
-                        </p:column>
-                        <p:column headerText="Email">
-                            <h:outputText value="#{p.email}" />
-                        </p:column>
-                        <p:column headerText="Usuario">
-                            <h:outputText value="#{p.usuario}" />
-                        </p:column>
-                        <p:column headerText="Contrasena">
-                            <h:outputText value="#{p.contrasena}" />
-                        </p:column>
-                        <p:column style="width:32px;text-align: center">
-                            <p:commandButton update="" oncomplete="" icon="ui-icon-search" title="View">
-                                <!-- <f:setPropertyActionListener value="" target="" /> -->
-                            </p:commandButton>
-                        </p:column>
-                    </p:dataTable>
+                    
+                        <p:dataTable id="basicDT" var="p" value="#{UsuController.usuario}">
+                            <f:facet name="header" >
+                                Usuarios
+                            </f:facet>
+                            <p:column headerText="DNI" filterBy="#{p.dni}" filterMatchMode="contains">
+                                <h:outputText value="#{p.dni}" />
+                            </p:column>
+                            <p:column headerText="Nombre" filterBy="#{p.nombre}" filterMatchMode="contains">
+                                <h:outputText value="#{p.nombre}" />
+                            </p:column>
+                            <p:column headerText="Rol" filterBy="#{p.rol.rol}" filterMatchMode="contains">
+                                <h:outputText value="#{p.rol.rol}" />
+                            </p:column>
+                            <p:column headerText="Direccion">
+                                <h:outputText value="#{p.direccion}" />
+                            </p:column>
+                            <p:column headerText="Telefono">
+                                <h:outputText value="#{p.telefono}" />
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="#{p.email}" />
+                            </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{p.usuario}" />
+                            </p:column>
+                            <p:column headerText="Contrasena">
+                                <h:outputText value="#{p.contrasena}" />
+                            </p:column>
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton icon="ui-icon-pencil" title="View" actionListener="#{registrar.leer(p)}" oncomplete="PF('wdialogo').show();" update=":dialogo"/>
+                                 <p:commandButton update="" oncomplete="" icon="ui-icon-trash" title="View"/>
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton icon="ui-icon-check" value="Nuevo Usuario" onclick="PF('wdialogo').show();"/>
+                    
                 </h:form>
-            </ui:define>
+                
+           
+                
+                <p:dialog id="dialogo" widgetVar="wdialogo" header="Nuevo Usuario" modal="true" resizable="false" closeOnEscape="true" draggable="false">
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel for="txtNyP" value="Nombre y Apellido"/>
+                            <p:inputText id="txtNyP" required="true" value="#{registrar.usuario.nombre}" />
 
+                            <p:outputLabel for="txtDNI" value="DNI"/>
+                            <p:inputText id="txtDNI" required="true" value="#{registrar.usuario.dni}"/>
+
+                            <p:outputLabel for="txtDir" value="Direccion"/>
+                            <p:inputText id="txtDir" required="true" value="#{registrar.usuario.direccion}" />
+
+                            <p:outputLabel for="txtTel" value="Telefono"/>
+                            <p:inputText id="txtTel" required="true" value="#{registrar.usuario.telefono}"/>
+
+                            <p:outputLabel for="txtCorreo" value="Correo electronico"/>
+                            <p:inputText id="txtCorreo" required="true" value="#{registrar.usuario.email}"/>
+                            
+                            <p:outputLabel for="txtTipo" value="Tipo de Usuario"/>
+                            <p:selectOneRadio id="txtTipo" value="#{registrar.rol.rol}">
+                                <f:selectItem itemValue="Usuario" itemLabel="Usuario"></f:selectItem>
+                                <f:selectItem itemValue="Administrador" itemLabel="Administrador"></f:selectItem>
+                            </p:selectOneRadio>
+                            
+                            
+                            <p:outputLabel for="txtUsu" value="Usuario"/>
+                            <p:inputText id="txtUsu" required="true" value="#{registrar.usuario.usuario}"/>
+
+                            <p:outputLabel for="Clave1" value="Contraseña" />
+                            <p:password id="Clave1"  required="true" value="#{registrar.usuario.contrasena}"
+                                        match="Clave2" feedback="true" promptLabel="Ingrese una contraseña"
+                                        validatorMessage="Las claves no coinciden" weakLabel="Bajo" strongLabel="Fuerte" goodLabel="Medio"/>
+                            
+                            <p:outputLabel   value="Repetir Contraseña"/>
+                            <p:password id="Clave2"/>
+                           
+
+                        </p:panelGrid>
+                        
+                        <br/>
+                        <p:commandButton value="Registrar" icon="ui-icon-check" actionListener="#{registrar.registrarAdmin()}" update=":form:basicDT" oncomplete="PF('wdialogo').hide();"/>
+                            <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo').hide();"/>
+                                                    
+                    </h:form>
+                    
+                </p:dialog>
+            
+            
+            </ui:define>
         </ui:composition>
 
     </body>

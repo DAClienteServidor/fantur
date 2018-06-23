@@ -25,6 +25,7 @@ public class RegistroController implements Serializable{
     
     @EJB
     private UsuarioInterface UsuarioEJB;
+    @EJB
     private RolInterface RolEJB;
     
     
@@ -56,12 +57,26 @@ public class RegistroController implements Serializable{
     public void registrar() {
         try {
           UsuarioEJB.create(usuario);
-          rol.setRol("Usuario");
+          rol.setRol("usuario");
           rol.setUsuario(usuario);
           rol.setUsuarioDni(usuario.getDni());
           RolEJB.create(rol);
         } catch (Exception e) {
             System.out.print("No anda che" + e.getMessage());
         }
+    }
+    
+    public void registrarAdmin(){
+        try {
+            UsuarioEJB.create(usuario);
+            rol.setUsuario(usuario);
+            rol.setUsuarioDni(usuario.getDni());
+            RolEJB.create(rol);
+        } catch (Exception e) {
+        }
+    }
+    
+    public void leer(Usuario usuSelect) {
+        usuario = usuSelect; 
     }
 }

@@ -20,9 +20,12 @@ import modelo.Usuario;
 @ManagedBean(name = "UsuController")
 @SessionScoped
 public class UsuariosController {
+
       @EJB
     private UsuarioInterface ejbUsu;
     private List<Usuario> usuario;
+    
+    private Usuario usu;
     
     @PostConstruct
     public void init(){
@@ -35,5 +38,16 @@ public class UsuariosController {
 
     public void setUsuario(List<Usuario> usu) {
         this.usuario = usu;
+    }
+
+    public Usuario getUsu() {
+        return usu;
+    }
+
+    public void setUsu(Usuario usu) {
+        this.usu = usu;
+    }
+    
+    public void leer (Usuario usuarioSelect){
     }
 }
