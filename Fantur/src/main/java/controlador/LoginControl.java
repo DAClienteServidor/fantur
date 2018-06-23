@@ -5,15 +5,30 @@
  */
 package controlador;
 
-import dao.UsuarioInterface;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.InetAddress;
+
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import dao.UsuarioInterface;
+import modelo.Rol;
 import modelo.Usuario;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Controla el login del usuario y el cerrar sesion
@@ -24,47 +39,146 @@ import modelo.Usuario;
 @SessionScoped
 public class LoginControl implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    protected static final Logger logger = LoggerFactory.getLogger(LoginControl.class);
+
+    protected static final String LOGIN_PAGE = "login.jsf";
+
+    protected static final String LOGIN_ERROR_PAGE = "index.html";
+
+    public static final String JSF_REDIRECT = "?faces-redirect=true&amp;includeViewParams=true";
+
+    public static final String JSF_REDIRECT_ESCAPED = "?faces-redirect=true&includeViewParams=true";
+
+    @NotNull
+    private String username;
+
+    @NotNull
+    private String password;
+
+    private boolean authenticationError;
+
+    private Rol rol;
+
     @EJB
     private UsuarioInterface ejbUsuario;
     private Usuario usuario;
 
     @PostConstruct
     public void init() {
-        usuario = new Usuario();
+        this.authenticationError = false;
+        this.rol = null;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    @PreDestroy
+    public void preDestroy() {
+
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    public String login() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
 
-    public String iniciarSesion() {
-        String rol;
-        Usuario us;
         try {
-            us = ejbUsuario.iniciarSesion(usuario);
-            if (us != null) {
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us); //Crea una sesion
-                rol = us.getRol().getRol();
-                if ( rol.equals("Administrador")) {
-                    return "./../administradores/gesPaquetes.xhtml";
-                } else {
-                   return "index?faces-redirect=true";
-                }
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Usuario o clave erronea"));
+            if (isAuthenticated()) {
+                logout();
             }
+
+            request.login(this.username, this.password);
+
+            this.usuario = ejbUsuario.findByUsuario(username);
+            if (this.usuario != null) {
+                request.getSession().setAttribute(username, getUsuario());
+            }
+
+            this.authenticationError = false;
+            if (!this.usuario.getRol().getRol().equals("")) {
+                
+                this.rol = this.usuario.getRol();
+
+                return "/administradores/gesAlojamientos" + JSF_REDIRECT_ESCAPED;
+            } else {
+                request.getSession(false).invalidate();
+                this.authenticationError = true;
+            }
+        } catch (ServletException e) {
+            request.getSession(false).invalidate();
+            this.authenticationError = true;
+
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "Error logueo"));
+            if (request != null) {
+                request.getSession(false).invalidate();
+            }
+            this.authenticationError = true;
         }
-        return "";
+        return LOGIN_ERROR_PAGE;
     }
 
-    public String cerrarSesion() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "./index?faces-redirect=true";
+    public boolean isAuthenticated() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        return (externalContext.getUserPrincipal() != null);
     }
+
+    public void logout() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+        try {
+            if (request != null) {
+                //request.getSession(false).invalidate();
+                request.logout();
+                this.authenticationError = false;
+            }
+            externalContext.redirect(externalContext.getRequestContextPath() + "/index.html");
+        } catch (IOException e) {
+            logger.error("Logout error: " + e.getMessage());
+        } catch (ServletException e) {
+            logger.error("Logout error: " + e.getMessage());
+        }
+    }
+    public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public boolean isAuthenticationError() {
+		return authenticationError;
+	}
+
+	public void setAuthenticationError(boolean authenticationError) {
+		this.authenticationError = authenticationError;
+	}
+	
+	public String getNombreUsuario() {
+		if(this.usuario == null)
+			return "NO USER";
+		return this.usuario.getNombre();
+	}
 }
