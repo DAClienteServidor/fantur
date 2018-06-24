@@ -31,6 +31,7 @@ public class RegistroController implements Serializable{
     
         private Usuario usuario; 
         private Rol rol;
+
         
         @PostConstruct
         public  void init() {
@@ -77,6 +78,19 @@ public class RegistroController implements Serializable{
     }
     
     public void leer(Usuario usuSelect) {
-        usuario = usuSelect; 
+        usuario = usuSelect;
     }
+    public  void modificarAdmin(){
+        try {
+            UsuarioEJB.edit(usuario);
+        } catch (Exception e) {
+            System.out.print("Ayudaaa "+e.getMessage());
+        }
+        
+    }
+    
+        public  void Eliminar(){
+        UsuarioEJB.remove(usuario);
+    }
+    
 }

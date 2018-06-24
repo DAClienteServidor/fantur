@@ -11,6 +11,8 @@
         <ui:composition template="./../template/admin.xhtml">
 
             <ui:define name="content">
+                
+                <!-- tabla de contenidos-->
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true" />
                     
@@ -43,18 +45,25 @@
                                 <h:outputText value="#{p.contrasena}" />
                             </p:column>
                             <p:column style="width:32px;text-align: center">
-                                <p:commandButton icon="ui-icon-pencil" title="View" actionListener="#{registrar.leer(p)}" oncomplete="PF('wdialogo').show();" update=":dialogo"/>
-                                 <p:commandButton update="" oncomplete="" icon="ui-icon-trash" title="View"/>
+                                
+                                <!--Botones de editar y eliminar-->
+                                <p:commandButton icon="ui-icon-pencil" title="View" actionListener="#{registrar.leer(p)}"
+                                                 oncomplete="PF('wdialogo2').show();" update=":dialogo2"/>
+                                 <p:commandButton icon="ui-icon-trash" title="View" actionListener="#{registrar.leer(p)}" 
+                                                  oncomplete="PF('wdialogo3').show();" update=":dialogo3"/>
                             </p:column>
                         </p:dataTable>
                         <br/>
+                        
+                        <!-- Boton nuevo usuario -->
                         <p:commandButton icon="ui-icon-check" value="Nuevo Usuario" onclick="PF('wdialogo').show();"/>
                     
                 </h:form>
                 
            
-                
-                <p:dialog id="dialogo" widgetVar="wdialogo" header="Nuevo Usuario" modal="true" resizable="false" closeOnEscape="true" draggable="false">
+                <!-- dialogo para crear -->
+                <p:dialog id="dialogo" widgetVar="wdialogo" header="Nuevo Usuario" modal="true" 
+                          resizable="false" closeOnEscape="true" draggable="false">
                     <h:form>
                         <p:panelGrid columns="2">
                             <p:outputLabel for="txtNyP" value="Nombre y Apellido"/>
@@ -85,7 +94,8 @@
                             <p:outputLabel for="Clave1" value="Contraseña" />
                             <p:password id="Clave1"  required="true" value="#{registrar.usuario.contrasena}"
                                         match="Clave2" feedback="true" promptLabel="Ingrese una contraseña"
-                                        validatorMessage="Las claves no coinciden" weakLabel="Bajo" strongLabel="Fuerte" goodLabel="Medio"/>
+                                        validatorMessage="Las claves no coinciden" weakLabel="Bajo" strongLabel="Fuerte"
+                                        goodLabel="Medio"/>
                             
                             <p:outputLabel   value="Repetir Contraseña"/>
                             <p:password id="Clave2"/>
@@ -94,12 +104,73 @@
                         </p:panelGrid>
                         
                         <br/>
-                        <p:commandButton value="Registrar" icon="ui-icon-check" actionListener="#{registrar.registrarAdmin()}" update=":form:basicDT" oncomplete="PF('wdialogo').hide();"/>
-                            <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo').hide();"/>
+                        <!--botones de registrar y -->
+                        <p:commandButton value="Registrar" icon="ui-icon-check" actionListener="#{registrar.registrarAdmin()}" 
+                                         update=":form:basicDT" oncomplete="PF('wdialogo').hide();"/>                                             
+                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo').hide();"/>
                                                     
                     </h:form>
                     
                 </p:dialog>
+                
+                
+                
+                 <!-- dialogo para modificar -->
+                <p:dialog id="dialogo2" widgetVar="wdialogo2" header="Modificar Usuario" modal="true" 
+                          resizable="false" closeOnEscape="true" draggable="false">
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            
+                            <p:outputLabel for="txtNyP" value="Nombre y Apellido"/>
+                            <p:inputText id="txtNyP" required="true" value="#{registrar.usuario.nombre}" />
+
+                            <p:outputLabel for="txtDNI" value="DNI"/>
+                            <p:inputText id="txtDNI" required="true" value="#{registrar.usuario.dni}"/>
+
+                            <p:outputLabel for="txtDir" value="Direccion"/>
+                            <p:inputText id="txtDir" required="true" value="#{registrar.usuario.direccion}" />
+
+                            <p:outputLabel for="txtTel" value="Telefono"/>
+                            <p:inputText id="txtTel" required="true" value="#{registrar.usuario.telefono}"/>
+
+                            <p:outputLabel for="txtCorreo" value="Correo electronico"/>
+                            <p:inputText id="txtCorreo" required="true" value="#{registrar.usuario.email}"/>
+                            
+                            
+                        </p:panelGrid>
+                        
+                        <br/>
+                        <!--botones de modificar y cancelar -->
+                        
+                        <p:commandButton value="Modificar" icon="ui-icon-check" actionListener="#{registrar.modificarAdmin()}" 
+                                         update=":form:basicDT" oncomplete="PF('wdialogo2').hide();"/>                        
+                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo2').hide();"/>
+                                                    
+                    </h:form>
+                    
+                </p:dialog>
+                
+                 
+                 
+                 <!--dialogo para eliminar -->
+                 <p:dialog id="dialogo3" widgetVar="wdialogo3" header="Eliminar" modal="true" 
+                     resizable="false" closeOnEscape="true" draggable="false">
+                     
+                     <h:form>
+                     
+                      <p:outputLabel  value="Seguro que desea eliminar el Usuario?"/>
+                      <!-- botones de aceptar y cancelar-->
+                      <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{registrar.Eliminar()}" 
+                                         update=":form:basicDT" oncomplete="PF('wdialogo3').hide();"/>                        
+                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo3').hide();"/>
+                           
+                    </h:form>
+
+                               
+                 </p:dialog>
+                
+                
+           
             
             
             </ui:define>

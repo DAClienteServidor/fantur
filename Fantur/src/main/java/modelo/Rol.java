@@ -45,7 +45,7 @@ public class Rol implements Serializable {
     @Column(name = "usuario_dni")
     private String usuarioDni;
     @JoinColumn(name = "usuario_dni", referencedColumnName = "dni", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = true)
     private Usuario usuario;
 
     public Rol() {

@@ -11,7 +11,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.swing.JOptionPane;
 import modelo.Rol;
+import modelo.Usuario;
 
 /**
  *
@@ -23,10 +25,17 @@ public class RolesController {
     @EJB
     private RolInterface ejbRol;
     private List<Rol> rol;
+
+    
+    
+    private Rol rol1;
+    
+    
     
     @PostConstruct
     public void init(){
         rol = ejbRol.findAll();
+        rol1 = new Rol();
     }
     
     public List<Rol> getRol() {
@@ -36,4 +45,33 @@ public class RolesController {
     public void setUsuario(List<Rol> rol) {
         this.rol = rol;
     }
+    
+    //Rol1
+
+    public Rol getRol1() {
+        return rol1;
+    }
+
+    public void setRol1(Rol rol1) {
+        this.rol1 = rol1;
+    }
+    
+    
+    
+    //Metodos para los gestionar
+    public void registrarNRol(){
+        ejbRol.create(rol1);
+    }
+    
+    public  void leer(Rol rolSelect){
+        rol1 = rolSelect;
+    }
+     public void eliminar(){
+         try {
+             ejbRol.remove(rol1);
+         } catch (Exception e) {
+             System.out.print(e.getMessage());
+         }
+         
+     }
 }
