@@ -34,6 +34,4 @@ public class PaquetesController implements Serializable {
     public void setPaquete(List<Paquete> paquete) {
         this.paquete = paquete;
     }
-    
-
 }
