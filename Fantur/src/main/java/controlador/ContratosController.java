@@ -23,10 +23,12 @@ public class ContratosController {
     @EJB
     private ContrataInterface ejbCon;
     private List<Contrata> contrata;
+    private Contrata contrato;
     
     @PostConstruct
     public void init(){
         contrata = ejbCon.findAll();
+        contrato = null;
     }
     
     public List<Contrata> getContrato() {
@@ -36,5 +38,20 @@ public class ContratosController {
     public void setContrato(List<Contrata> con) {
         this.contrata = con;
     }
+    
+    public Contrata getCon(){
+        return contrato;
+    }
+    
+    public void setCon(Contrata con){
+        this.contrato = con;
+    }
+    
+    public String cargar(){
+        return "";
+    }
+    
+    
+    
     
 }
