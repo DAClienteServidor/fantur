@@ -23,6 +23,8 @@ public interface PaqueteInterface {
     void remove(Paquete paquete);
 
     Paquete find(Object id);
+    
+    Paquete findById(int id);
 
     List<Paquete> findAll();
 

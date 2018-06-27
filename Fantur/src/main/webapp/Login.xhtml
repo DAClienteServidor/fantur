@@ -14,10 +14,10 @@
                
                     <h:panelGrid columns="2">
                         <p:outputLabel for="txtUsuario" value="Usuario" />
-                        <p:inputText id="txtUsuario" required="true" value="#{loginControl.usuario.usuario}"/>
+                        <p:inputText id="txtUsuario" required="true" value="#{loginControl.usu}"/>
 
                         <p:outputLabel for="txtClave" value="Contraseña" />
-                        <p:password id="txtClave" required="true" value="#{loginControl.usuario.contrasena}"/>
+                        <p:password id="txtClave" required="true" value="#{loginControl.pas}"/>
 
                         <p:commandButton icon="ui-icon-key" value="Iniciar sesion" action="#{loginControl.iniciarSesion()}" ajax="false"/>
                     </h:panelGrid>

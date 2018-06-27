@@ -34,7 +34,7 @@ public class UsuarioDAO extends DAO<Usuario> implements UsuarioInterface {
         super(Usuario.class);
     }
     
-    public Usuario iniciarSesion(Usuario us) throws Exception {
+    public Usuario iniciarSesion(String usu, String pas) throws Exception {
         Usuario usuario = null;
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -43,7 +43,7 @@ public class UsuarioDAO extends DAO<Usuario> implements UsuarioInterface {
             Root<Usuario> e = cq.from(Usuario.class);
             
             
-            cq.where(cb.and((cb.equal(e.get("usuario"), us.getUsuario())), (cb.equal(e.get("contrasena"), us.getContrasena()))));
+            cq.where(cb.and((cb.equal(e.get("usuario"), usu)), (cb.equal(e.get("contrasena"), pas))));
 
             Query query = em.createQuery(cq);
             

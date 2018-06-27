@@ -5,9 +5,14 @@
  */
 package dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import modelo.Paquete;
 
 /**
@@ -29,4 +34,27 @@ public class PaqueteDAO extends DAO<Paquete> implements PaqueteInterface {
         super(Paquete.class);
     }
     
+       
+    @Override
+    public Paquete findById(int id){
+        Paquete paquete = null;
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Paquete> cq = cb.createQuery(Paquete.class);
+
+            Root<Paquete> e = cq.from(Paquete.class);
+            
+            cq.where(cb.and(cb.equal(e.get("idpaquete"), id)));
+
+            Query query = em.createQuery(cq);
+            
+            List<Paquete> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                paquete = lista.get(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return paquete;
+    };
 }

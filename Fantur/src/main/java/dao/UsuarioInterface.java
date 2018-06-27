@@ -32,6 +32,6 @@ public interface UsuarioInterface {
 
     int count();
 
-    public Usuario iniciarSesion(Usuario us) throws Exception;
+    public Usuario iniciarSesion(String usu, String pas) throws Exception;
       
 }

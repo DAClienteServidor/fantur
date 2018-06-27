@@ -26,11 +26,13 @@ public class LoginControl implements Serializable {
 
     @EJB
     private UsuarioInterface ejbUsuario;
+    private String usu;
+    private String pas;
     private Usuario usuario;
 
     @PostConstruct
     public void init() {
-        usuario = new Usuario();
+        usuario = null;
     }
 
     public Usuario getUsuario() {
@@ -41,21 +43,35 @@ public class LoginControl implements Serializable {
         this.usuario = usuario;
     }
 
+    public String getUsu() {
+        return usu;
+    }
+
+    public void setUsu(String usu) {
+        this.usu = usu;
+    }
+
+    public String getPas() {
+        return pas;
+    }
+
+    public void setPas(String pas) {
+        this.pas = pas;
+    }
+
     public String iniciarSesion() {
         String rol;
-        Usuario us;
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             //por si ya hay una sesion la destruye
-            Usuario usVieja = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
-            if (usVieja != null) {
+            if (usuario != null) {
                 cerrarSesion();
             }
 
-            us = ejbUsuario.iniciarSesion(usuario);
-            if (us != null) {
-                context.getExternalContext().getSessionMap().put("usuario", us); //Crea una sesion
-                rol = us.getRol().getRol();
+            usuario = ejbUsuario.iniciarSesion(this.usu,this.pas);
+            if (usuario != null) {
+                context.getExternalContext().getSessionMap().put("usuario", usuario); //Crea una sesion
+                rol = usuario.getRol().getRol();
                 if (rol.equals("Administrador")) {
                     return "/administradores/gesPaquetes.xhtml?faces-redirect=true";
                 } else {
@@ -72,11 +88,10 @@ public class LoginControl implements Serializable {
 
     public void cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        this.usuario = null;
     }
 
     public String nombreUsuario() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
-        return us.getNombre();
+        return usuario.getNombre();
     }
 }
