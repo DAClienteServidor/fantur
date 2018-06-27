@@ -18,6 +18,7 @@ import modelo.Paquete;
 import modelo.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ws.validar;
 
 @ManagedBean(name = "ConController")
 @SessionScoped
@@ -32,14 +33,24 @@ public class ContratosController {
 
     @PostConstruct
     public void init() {
-        contrata = ejbCon.findAll();
+        FacesContext context = FacesContext.getCurrentInstance();
+        Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        if(!us.getRol().getRol().equals("Usuario")){
+            contrata = ejbCon.findByUsu(us.getDni());
+        }else{
+            contrata = ejbCon.findAll();
+        }
     }
 
     public String cargar(Paquete paq) {
         contrato = new Contrata();
         contrato.setContrataPK(new modelo.ContrataPK());
+               
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        
+        validar val = new validar();
+        contrato.setPermitido(val.getVal(us.getDni()));
         
         logger.info(String.format("Llega usuario", paq.getNombre()));
         contrato.setPaquete1(paq);
@@ -49,13 +60,13 @@ public class ContratosController {
         contrato.setUsuario1(us);
         logger.info(String.format("Anda usuario", us.getNombre()));
         contrato.setPagado("Si");
-        contrato.setPermitido("Si");
+        
         contrato.setFechaContrato(new Date());
 
         contrato.getContrataPK().setUsuario(contrato.getUsuario1().getDni());
         contrato.getContrataPK().setPaquete(contrato.getPaquete1().getIdpaquete());
         ejbCon.create(contrato);
-        return "./prueba.xhtml";
+        return "./misPaquetes.xhtml";
     }
 
     public List<Contrata> getContrato() {
