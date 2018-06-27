@@ -6,6 +6,7 @@
 package controlador;
 
 import dao.AlojamientoInterface;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -18,14 +19,17 @@ import modelo.Alojamiento;
  */
 @ManagedBean(name = "AloController")
 @SessionScoped
-public class AlojamientosController {
+public class AlojamientosController implements Serializable{
     @EJB
     private AlojamientoInterface ejbAlo;
     private List<Alojamiento> alojamiento;
     
     @PostConstruct
     public void init(){
-        alojamiento = ejbAlo.findAll();
+        try {
+            alojamiento = ejbAlo.findAll();
+        } catch (Exception e) {
+        }
     }
     
     public List<Alojamiento> getAlojamiento() {
@@ -35,5 +39,7 @@ public class AlojamientosController {
     public void setAlojamiento(List<Alojamiento> alo) {
         this.alojamiento = alo;
     }
+    
+    
     
 }

@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template/admin.xhtml">
+
+            <ui:define name="content">
+               <h:form id="form">
+                    <p:growl id="msgs" showDetail="true" />
+
+                    <p:dataTable id="basicDT" var="p" value="#{PasController.pasaje}">
+                        <f:facet name="header">
+                            Pasajes
+                        </f:facet>
+                        <p:column headerText="Id">
+                            <h:outputText value="#{p.id}" />
+                        </p:column>
+                        <p:column headerText="Destino">
+                            <h:outputText value="#{p.destino}" />
+                        </p:column>
+                        <p:column headerText="Origen">
+                            <h:outputText value="#{p.origen}" />
+                        </p:column>
+                        <p:column headerText="Fecha Ida">
+                            <h:outputText value="#{p.fechaIda}" />
+                        </p:column>
+                        <p:column headerText="Hora">
+                            <h:outputText value="#{p.hora}" />
+                        </p:column>
+                        <p:column headerText="Fecha Vuelta">
+                            <h:outputText value="#{p.fechaVuelta}" />
+                        </p:column>
+                        <p:column headerText="Precio">
+                            <h:outputText value="#{p.precio}" />
+                        </p:column>
+                        <p:column headerText="Tipo">
+                            <h:outputText value="#{p.tipo}" />
+                        </p:column>
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton update=":ModifPasaje"  icon="ui-icon-pencil" 
+                                             oncomplete="PF('wModifPasaje').show();" 
+                                             actionListener="#{PasController.leer(p)}" title="View"></p:commandButton>
+                            <p:commandButton update=":EliminarPasaje" oncomplete="PF('wEliminarPasaje').show();" 
+                                             icon="ui-icon-trash" actionListener="#{PasController.leer(p)}" title="View"></p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton icon="ui-icon-check" value="Nuevo Pasaje"
+                                     onclick="PF('wNuevoPasaje').show();"/>
+                </h:form>
+                
+                
+               <!-- Dialogo para crea un nuevo pasaje --> 
+               <p:dialog id="NuevoPasaje" widgetVar="wNuevoPasaje" header="Nuevo Pasaje" modal="true" 
+                   resizable="false"  closeOnEscape="true" draggable="false">
+                   <h:form >
+                       <p:panelGrid columns="2">
+                           <p:outputLabel for="txtId" value="Codigo"/>
+                           <p:inputText id="txtId" required="true" value="#{PasController.pasaje1.id}"/>
+                           
+                           <p:outputLabel for="txtfi" value="Fecha de Partida"/>
+                           <p:calendar id="txtfi" value="#{PasController.pasaje1.fechaIda}" pattern="dd/MM/yyyy"  />
+                           
+                           <p:outputLabel for="txtfv" value="Fecha de Vuelta"/>
+                           <p:calendar id="txtfv" value="#{PasController.pasaje1.fechaVuelta}" pattern="dd/MM/yyyy"  />
+
+                           <p:outputLabel for="txtorigen" value="Ciudad Origen"/>
+                           <p:inputText id="txtorigen" required="true"  value="#{PasController.pasaje1.origen}"/>
+                           
+                           <p:outputLabel for="txtdestino" value="Ciudad destino"/>
+                           <p:inputText id="txtdestino" required="true" value="#{PasController.pasaje1.destino}"/>
+                           
+                           
+                           <p:column>
+                        <!--En la base de datos esta en tipo varchar y tiene que ser time -->
+                           <p:outputLabel for="txthora" value="Horario de Partida"/>
+                        <!-- <p:calendar id="txthora" value="" pattern="HH:mm" timeOnly="true"  /> -->
+                           </p:column>
+                           <p:inputText id="txthora" required="true" value="#{PasController.pasaje1.hora}"/>
+                           
+                           <p:outputLabel for="txtprecio" value="Precio: (00.00)"/>
+                           <p:inputText id="txtprecio" required="true"  value="#{PasController.pasaje1.precio}"/>
+                           
+                           <p:outputLabel for="txttipo" value="Tipo"/>
+                           <p:selectOneMenu id="txttipo" value="#{PasController.pasaje1.tipo}" >
+                               <f:selectItem itemValue="Avion" itemLabel="Avion"/>
+                               <f:selectItem itemValue="Tren" itemLabel="Tren"/>
+                               <f:selectItem itemValue="Bus" itemLabel="Bus"/>
+                           </p:selectOneMenu>
+                       </p:panelGrid>
+                       <br/>
+                       <p:commandButton value="Registrar" icon="ui-icon-check" actionListener="#{PasController.resgistrarNuevoPasaje()}" 
+                                         update=":form:basicDT" oncomplete="PF('wNuevoPasaje').hide();"/>                                             
+                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wMNuevoPasaje').hide();"/>
+                   </h:form>
+               </p:dialog>
+
+               <!--Dialogo para editar -->
+                  <p:dialog id="ModifPasaje" widgetVar="wModifPasaje" header="Modificar pasaje" modal="true" 
+                   resizable="false"  closeOnEscape="true" draggable="false">
+                   <h:form >
+                       <p:panelGrid columns="2">
+                           
+                           <p:outputLabel for="txtfi" value="Fecha de Partida"/>
+                           <p:calendar id="txtfi" value="#{PasController.pasaje1.fechaIda}" pattern="dd/MM/yyyy"  />
+                           
+                           <p:outputLabel for="txtfv" value="Fecha de Vuelta"/>
+                           <p:calendar id="txtfv" value="#{PasController.pasaje1.fechaVuelta}" pattern="dd/MM/yyyy" />
+
+                           <p:outputLabel for="txtorigen" value="Ciudad Origen"/>
+                           <p:inputText id="txtorigen" required="true"  value="#{PasController.pasaje1.origen}"/>
+                           
+                           <p:outputLabel for="txtdestino" value="Ciudad destino"/>
+                           <p:inputText id="txtdestino" required="true" value="#{PasController.pasaje1.destino}"/>
+                           
+                           <p:column>
+                        <!--En la base de datos esta en tipo varchar y tiene que ser time -->
+                           <p:outputLabel for="txthora" value="Horario de Partida"/>
+                        <!-- <p:calendar id="txthora" value="#" pattern="HH:mm" timeOnly="true"  /> -->
+                           </p:column>
+                           <p:inputText id="txthora" required="true" value="#{PasController.pasaje1.hora}"/>
+                         
+                           <p:outputLabel for="txtprecio" value="Precio: (00.00)"/>
+                           <p:inputText id="txtprecio" required="true"  value="#{PasController.pasaje1.precio}"/>
+                           
+                           <p:outputLabel for="txttipo" value="Tipo"/>
+                           <p:selectOneMenu id="txttipo" value="#{PasController.pasaje1.tipo}" >
+                               <f:selectItem itemValue="Avion" itemLabel="Avion"/>
+                               <f:selectItem itemValue="Tren" itemLabel="Tren"/>
+                               <f:selectItem itemValue="Bus" itemLabel="Bus"/>
+                           </p:selectOneMenu>
+                       </p:panelGrid>
+                       <br/>
+                       <p:commandButton value="Modificar" icon="ui-icon-check" actionListener="#{PasController.ModificarPasaje()}" 
+                                         update=":form:basicDT" oncomplete="PF('wModifPasaje').hide();"/>                                             
+                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wModifPasaje').hide();"/>
+                   </h:form>
+               </p:dialog>
+                
+               <!--dialogo para eliminar -->
+               <p:dialog id="EliminarPasaje" widgetVar="wEliminarPasaje" header="Eliminar Pasaje" modal="true" 
+                         resizable="false" closeOnEscape="true" draggable="false">
+                     
+                     <h:form>
+                     
+                      <p:outputLabel  value="Seguro que desea eliminar el Pasaje?"/>
+                      <!-- botones de aceptar y cancelar-->
+                      <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{PasController.EliminarPasaje()}" 
+                                         update=":form:basicDT" oncomplete="PF('wEliminarPasaje').hide();"/>                        
+                      <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wEliminarPasaje').hide();"/>
+                           
+                    </h:form>
+                </p:dialog>
+
+        
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

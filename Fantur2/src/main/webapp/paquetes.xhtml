@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template/plantillaInicio.xhtml">
+
+            <ui:define name="body">
+                <ui:repeat var="p" value="#{PaqController.paquete}">
+                    <p:panel id="basic" header="Paquete #{p.nombre}" style="margin-bottom:20px">
+                        <h:form>
+                            <h:panelGrid columns="5" cellpadding="10">
+                                <h:panelGrid columns="1">
+                                    <p:graphicImage value="/resources/Imagenes/palacio.jpg" height="200px" width="250px"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <h:outputText value="Datos del Paquete" />
+                                    <h:outputText value="#{p.precio}" />
+                                </h:panelGrid>
+                                <p:commandButton value="Comprar" oncomplete="PF('wdialogo').show();" update="dialogo"/>
+                                <p:dialog id="dialogo" widgetVar="wdialogo" header="Compra" modal="true" resizable="false" closeOnEscape="true" draggable="false">
+                                    <h:form>
+                                        <p:panelGrid columns="1">
+                                            <p:outputLabel value="Paquete: #{p.nombre}"/>
+                                            <p:outputLabel value="Precio: #{p.precio}"/>
+                                            <h:panelGrid columns="1">
+                                                <h:outputText value="Numero de tarjeta de credito" />
+                                                <p:inputText required="true"/>
+                                                <h:outputText value="Codigo de seguridad" />
+                                                <p:inputText required="true"/>
+                                                <h:outputText value="Fecha de vencimiento" />
+                                                <p:inputText required="true"/>
+                                            </h:panelGrid>
+                                        </p:panelGrid>
+                                        <br/>
+                                        <p:commandButton value="Comprar" icon="ui-icon-check" action="#{ConController.cargar(p.idpaquete)}"/>
+                                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo').hide();"/>                               
+                                    </h:form>
+                                </p:dialog>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:panel>
+
+                </ui:repeat>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

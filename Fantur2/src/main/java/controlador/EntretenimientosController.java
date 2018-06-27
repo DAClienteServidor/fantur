@@ -6,6 +6,7 @@
 package controlador;
 
 import dao.EntretenimientoInterface;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -19,7 +20,7 @@ import modelo.Entretenimiento;
  */
 @ManagedBean(name = "EntController")
 @SessionScoped
-public class EntretenimientosController {
+public class EntretenimientosController implements Serializable{
     
     @EJB
     private EntretenimientoInterface ejbEnt;
@@ -27,7 +28,12 @@ public class EntretenimientosController {
     
     @PostConstruct
     public void init(){
-        entretenimiento = ejbEnt.findAll();
+        try {
+                    entretenimiento = ejbEnt.findAll();
+            
+        } catch (Exception e) {
+        }
+
     }
     
     public List<Entretenimiento> getEntretenimiento() {

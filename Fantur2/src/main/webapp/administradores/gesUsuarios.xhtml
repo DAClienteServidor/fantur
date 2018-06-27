@@ -104,7 +104,7 @@
                         </p:panelGrid>
                         
                         <br/>
-                        <!--botones de registrar y -->
+                        <!--botones de registrar y cancelar -->
                         <p:commandButton value="Registrar" icon="ui-icon-check" actionListener="#{registrar.registrarAdmin()}" 
                                          update=":form:basicDT" oncomplete="PF('wdialogo').hide();"/>                                             
                         <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo').hide();"/>
@@ -124,9 +124,7 @@
                             <p:outputLabel for="txtNyP" value="Nombre y Apellido"/>
                             <p:inputText id="txtNyP" required="true" value="#{registrar.usuario.nombre}" />
 
-                            <p:outputLabel for="txtDNI" value="DNI"/>
-                            <p:inputText id="txtDNI" required="true" value="#{registrar.usuario.dni}"/>
-
+                            
                             <p:outputLabel for="txtDir" value="Direccion"/>
                             <p:inputText id="txtDir" required="true" value="#{registrar.usuario.direccion}" />
 

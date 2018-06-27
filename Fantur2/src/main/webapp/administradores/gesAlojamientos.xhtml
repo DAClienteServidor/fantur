@@ -40,14 +40,26 @@
                             <h:outputText value="#{p.descripcion}" />
                         </p:column>
                         <p:column style="width:32px;text-align: center">
-                            <p:commandButton update="" oncomplete="" icon="ui-icon-search" title="View">
-                                <!-- <f:setPropertyActionListener value="" target="" /> -->
+                            <p:commandButton update="" oncomplete="" icon="ui-icon-pencile" title="View">
+                            </p:commandButton>
+                            <p:commandButton update="" oncomplete="" icon="ui-icon-trash" title="View">
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
+                    <p:commandButton update="" oncomplete="" value="Nuevos Alojamiento" icon="ui-icon-check" title="View">
+                            </p:commandButton>
                 </h:form>
             </ui:define>
 
+            <!--Dialogo para crear -->
+            <p:dialog id="NuevoPasaje" widgetVar="wNuevoPasaje" header="Nuevo Pasaje" modal="true" 
+                resizable="false"  closeOnEscape="true" draggable="false">
+                
+                          
+            </p:dialog>
+            
+            
+            
         </ui:composition>
 
     </body>
