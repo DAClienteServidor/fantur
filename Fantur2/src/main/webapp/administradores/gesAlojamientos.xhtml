@@ -40,25 +40,110 @@
                             <h:outputText value="#{p.descripcion}" />
                         </p:column>
                         <p:column style="width:32px;text-align: center">
-                            <p:commandButton update="" oncomplete="" icon="ui-icon-pencile" title="View">
-                            </p:commandButton>
-                            <p:commandButton update="" oncomplete="" icon="ui-icon-trash" title="View">
-                            </p:commandButton>
+                         <p:commandButton update=":Modif"  icon="ui-icon-pencil" 
+                                             oncomplete="PF('wModif').show();" 
+                                             actionListener="#{AloController.leer(p)}" title="View"></p:commandButton>
+                            <p:commandButton update=":Eliminar" oncomplete="PF('wEliminar').show();" 
+                                             icon="ui-icon-trash" actionListener="#{AloController.leer(p)}" title="View"></p:commandButton>
+                  
                         </p:column>
                     </p:dataTable>
-                    <p:commandButton update="" oncomplete="" value="Nuevos Alojamiento" icon="ui-icon-check" title="View">
-                            </p:commandButton>
+                   <p:commandButton icon="ui-icon-check" value="Nuevo Alojamiento"
+                                     onclick="PF('wNuevo').show();"/>
                 </h:form>
-            </ui:define>
+            
 
-            <!--Dialogo para crear -->
-            <p:dialog id="NuevoPasaje" widgetVar="wNuevoPasaje" header="Nuevo Pasaje" modal="true" 
-                resizable="false"  closeOnEscape="true" draggable="false">
-                
+          <!-- Dialogo para crea un nuevo --> 
+               <p:dialog id="Nuevo" widgetVar="wNuevo" header="Nuevo Alojamiento" modal="true" 
+                   resizable="false"  closeOnEscape="true" draggable="false">
+                   <h:form >
+                       <p:panelGrid columns="2">
+                           
+                           <p:outputLabel for="txtId" value="Codigo"/>
+                           <p:inputText id="txtId" required="true" value="#{AloController.aloj.id}"/>
+                           
+                           
+                           <p:outputLabel for="txtNombre" value="Nombre"/>
+                           <p:inputText id="txtNombre" required="true"  value="#{AloController.aloj.nombre}"/>
+                           
+                           <p:outputLabel for="txtdescripcion" value="Descripcion"/>
+                           <p:inputText id="txtdescripcion" required="true" value="#{AloController.aloj.descripcion}"/>
+                           
+                           <p:outputLabel for="txtCategoria" value="Categoria"/>
+                           <p:inputText id="txtCategoria" required="true" value="#{AloController.aloj.categoria}"/>
+                           
+                           <p:outputLabel for="txtdireccion" value="Direccion"/>
+                           <p:inputText id="txtdireccion" required="true" value="#{AloController.aloj.direccion}"/>
+                           
+                           <p:outputLabel for="txttipo" value="Tipo"/>
+                           <p:inputText id="txttipo" required="true"  value="#{AloController.aloj.tipo}"/>
+                           
                           
-            </p:dialog>
+                           <p:outputLabel for="txtprecio" value="Precio"/>
+                           <p:inputText id="txtprecio" required="true"  value="#{AloController.aloj.precio}"/>
+                           
+                           
+                           
+                       </p:panelGrid>
+                       <br/>
+                       <p:commandButton value="Registrar" icon="ui-icon-check" actionListener="#{AloController.resgistrarNuevoAlojamiento()}" 
+                                         update=":form:basicDT" oncomplete="PF('wNuevo').hide();"/>                                             
+                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wMNuevo').hide();"/>
+                   </h:form>
+               </p:dialog>
+
+               <!--Dialogo para editar -->
+                  <p:dialog id="Modif" widgetVar="wModif" header="Modificar Alojamiento" modal="true" 
+                   resizable="false"  closeOnEscape="true" draggable="false">
+                   <h:form >
+                       <p:panelGrid columns="2">
+                           
+                           
+                           <p:outputLabel for="txtNombre" value="Nombre"/>
+                           <p:inputText id="txtNombre" required="true"  value="#{AloController.aloj.nombre}"/>
+                           
+                           <p:outputLabel for="txtdescripcion" value="Descripcion"/>
+                           <p:inputText id="txtdescripcion" required="true" value="#{AloController.aloj.descripcion}"/>
+                           
+                           <p:outputLabel for="txtCategoria" value="Categoria"/>
+                           <p:inputText id="txtCategoria" required="true" value="#{AloController.aloj.categoria}"/>
+                           
+                           <p:outputLabel for="txtdireccion" value="Direccion"/>
+                           <p:inputText id="txtdireccion" required="true" value="#{AloController.aloj.direccion}"/>
+                           
+                           <p:outputLabel for="txttipo" value="Tipo"/>
+                           <p:inputText id="txttipo" required="true"  value="#{AloController.aloj.tipo}"/>
+                           
+                          
+                           <p:outputLabel for="txtprecio" value="Precio"/>
+                           <p:inputText id="txtprecio" required="true"  value="#{AloController.aloj.precio}"/>
+                           
+                           
+                       </p:panelGrid>
+                       <br/>
+                       <p:commandButton value="Modificar" icon="ui-icon-check" actionListener="#{AloController.ModificarAlojamiento()}" 
+                                         update=":form:basicDT" oncomplete="PF('wModif').hide();"/>                                             
+                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wModif').hide();"/>
+                   </h:form>
+               </p:dialog>
+                
+               <!--dialogo para eliminar -->
+               <p:dialog id="Eliminar" widgetVar="wEliminar" header="Eliminar Alojamiento" modal="true" 
+                         resizable="false" closeOnEscape="true" draggable="false">
+                     
+                     <h:form>
+                     
+                      <p:outputLabel  value="Seguro que desea eliminar el Alojamiento?"/>
+                      <!-- botones de aceptar y cancelar-->
+                      <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{AloController.EliminarAlojamiento}" 
+                                         update=":form:basicDT" oncomplete="PF('wEliminar').hide();"/>                        
+                      <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wEliminar').hide();"/>
+                           
+                    </h:form>
+                </p:dialog>
+
             
-            
+            </ui:define>
             
         </ui:composition>
 

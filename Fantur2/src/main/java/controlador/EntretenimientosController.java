@@ -26,10 +26,13 @@ public class EntretenimientosController implements Serializable{
     private EntretenimientoInterface ejbEnt;
     private List<Entretenimiento> entretenimiento;
     
+    private Entretenimiento ent;
+    
     @PostConstruct
     public void init(){
         try {
                     entretenimiento = ejbEnt.findAll();
+                    ent = new Entretenimiento();
             
         } catch (Exception e) {
         }
@@ -43,5 +46,45 @@ public class EntretenimientosController implements Serializable{
     public void setEntretenimiento(List<Entretenimiento> ent) {
         this.entretenimiento = ent;
     }
+    
+    //-------------------------------------------------------------
+       public Entretenimiento getEnt() {
+        return ent;
+    }
+
+    public void setEnt(Entretenimiento ent) {
+        this.ent = ent;
+    }
+    
+    //------------------------------------------------------------
+
+
+        
+    public void resgistrarNuevoEntretenimiento(){
+        try {
+            ejbEnt.create(ent);
+        } catch (Exception e) {
+        } 
+    }
+    
+        public void leer(Entretenimiento ent2) {
+        ent= ent2;
+    }
+
+        public  void ModificarEntretenimiento() {
+            try {
+                ejbEnt.edit(ent);
+            } catch (Exception e) {
+            }
+        }
+    
+        public void EliminarEntretenimiento(){
+            try {
+                ejbEnt.remove(ent);
+            } catch (Exception e) {
+            }
+        }
+    
+    
     
 }
