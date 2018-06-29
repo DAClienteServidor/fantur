@@ -36,25 +36,6 @@ public class ContrataDAO extends DAO<Contrata> implements ContrataInterface {
     }
     
     @Override
-    public List<Contrata> findByUsu(String dni){
-        try {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Contrata> cq = cb.createQuery(Contrata.class);
-
-            Root<Contrata> e = cq.from(Contrata.class);
-            
-            cq.where(cb.and(cb.equal(e.get("usuario"), dni)));
-
-            Query query = em.createQuery(cq);
-            
-            List<Contrata> lista = query.getResultList();
-            return lista;
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-    
-    @Override
     public Paquete findById(int id){
         Paquete paquete = null;
         try {
