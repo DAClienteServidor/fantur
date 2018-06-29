@@ -28,15 +28,15 @@ public class AlojamientosController {
     
     @PostConstruct
     public void init(){
-<<<<<<< HEAD:Fantur2/src/main/java/controlador/AlojamientosController.java
+
         try {
             alojamiento = ejbAlo.findAll();
             aloj = new Alojamiento();
         } catch (Exception e) {
         }
-=======
+
         alojamiento = ejbAlo.findAll();
->>>>>>> parent of c233edc... Falta Alojamiento y Entretenimiento:Fantur/src/main/java/controlador/AlojamientosController.java
+
     }
     
     public List<Alojamiento> getAlojamiento() {
@@ -47,7 +47,6 @@ public class AlojamientosController {
         this.alojamiento = alo;
     }
     
-<<<<<<< HEAD:Fantur2/src/main/java/controlador/AlojamientosController.java
    //--------------------------------------------
 
     public Alojamiento getAloj() {
@@ -92,7 +91,5 @@ public class AlojamientosController {
 
     
     
-    
-=======
->>>>>>> parent of c233edc... Falta Alojamiento y Entretenimiento:Fantur/src/main/java/controlador/AlojamientosController.java
+
 }

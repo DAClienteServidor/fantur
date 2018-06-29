@@ -18,6 +18,17 @@
 
         <div id="top" class="top">
             <ui:insert name="top">Top</ui:insert>
+            <p:graphicImage value="/resources/Imagenes/logo.png"/>
+            <p:graphicImage value="/resources/Imagenes/te lleva a rusia.png" style="float: right;"/>
+            <h:form>  
+            <p:growl id="messages"/>
+
+            <p:menubar>
+                <f:facet name="options">
+                    <p:commandButton value="Cerrar Sesion" icon="ui-icon-extlink" action="#{loginControl.cerrarSesion()}" ajax="false"/>
+                </f:facet>
+            </p:menubar>
+        </h:form>
         </div>
         <div>
             <div id="left">
@@ -31,6 +42,7 @@
                         <p:menuitem value="Gestionar Pasajes" url="./gesPasajes.xhtml" icon="ui-icon-disk" />
                         <p:menuitem value="Gestionar Entretenimientos" url="./gesEntretenimiento.xhtml" icon="ui-icon-disk" />
                         <p:menuitem value="Gestionar Alojamientos" url="./gesAlojamientos.xhtml" icon="ui-icon-disk" />    
+                        <p:menuitem value="Enviar Mensajes" url="./gesMail.xhtml" icon="ui-icon-disk" />  
                     </p:menu>
                 </h:form>
             </div>

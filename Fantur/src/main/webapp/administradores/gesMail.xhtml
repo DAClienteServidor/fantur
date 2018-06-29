@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./../template/admin.xhtml">
+
+            <ui:define name="content">
+                <div style="margin-left: 200px;">
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel for="to" value="Mandar a todos los usuarios registrados?"/>
+                            <p:selectOneRadio id="radio" value="#{mailControl.check}">
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <p:ajax update="to" />
+                            </p:selectOneRadio>
+
+                            <p:outputLabel for="to" value="Para"/>
+                            <p:inputText id="to" required="true" value="#{mailControl.destinatarios}" disabled="#{mailControl.check == 'Si'}"/>
+
+                            <p:outputLabel for="tit" value="Titulo"/>
+                            <p:inputText id="tit" required="true" value="#{mailControl.titulo}" />
+                        </p:panelGrid>  
+                        <br/>
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{mailControl.mensaje}" width="600" />
+                        <br/>
+                        <p:commandButton value="Enviar" action="#{mailControl.send()}" ajax="true"/>        
+                    </h:form>  
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

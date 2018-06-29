@@ -29,7 +29,7 @@ public class EntretenimientosController {
     
     @PostConstruct
     public void init(){
-<<<<<<< HEAD:Fantur2/src/main/java/controlador/EntretenimientosController.java
+
         try {
                     entretenimiento = ejbEnt.findAll();
                     ent = new Entretenimiento();
@@ -37,9 +37,8 @@ public class EntretenimientosController {
         } catch (Exception e) {
         }
 
-=======
         entretenimiento = ejbEnt.findAll();
->>>>>>> parent of c233edc... Falta Alojamiento y Entretenimiento:Fantur/src/main/java/controlador/EntretenimientosController.java
+
     }
     
     public List<Entretenimiento> getEntretenimiento() {
