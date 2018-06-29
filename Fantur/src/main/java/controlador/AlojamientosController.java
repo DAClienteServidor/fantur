@@ -6,7 +6,6 @@
 package controlador;
 
 import dao.AlojamientoInterface;
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -20,7 +19,7 @@ import modelo.Pasaje;
  */
 @ManagedBean(name = "AloController")
 @SessionScoped
-public class AlojamientosController implements Serializable{
+public class AlojamientosController {
     @EJB
     private AlojamientoInterface ejbAlo;
     private List<Alojamiento> alojamiento;
@@ -29,11 +28,15 @@ public class AlojamientosController implements Serializable{
     
     @PostConstruct
     public void init(){
+<<<<<<< HEAD:Fantur2/src/main/java/controlador/AlojamientosController.java
         try {
             alojamiento = ejbAlo.findAll();
             aloj = new Alojamiento();
         } catch (Exception e) {
         }
+=======
+        alojamiento = ejbAlo.findAll();
+>>>>>>> parent of c233edc... Falta Alojamiento y Entretenimiento:Fantur/src/main/java/controlador/AlojamientosController.java
     }
     
     public List<Alojamiento> getAlojamiento() {
@@ -44,6 +47,7 @@ public class AlojamientosController implements Serializable{
         this.alojamiento = alo;
     }
     
+<<<<<<< HEAD:Fantur2/src/main/java/controlador/AlojamientosController.java
    //--------------------------------------------
 
     public Alojamiento getAloj() {
@@ -89,4 +93,6 @@ public class AlojamientosController implements Serializable{
     
     
     
+=======
+>>>>>>> parent of c233edc... Falta Alojamiento y Entretenimiento:Fantur/src/main/java/controlador/AlojamientosController.java
 }

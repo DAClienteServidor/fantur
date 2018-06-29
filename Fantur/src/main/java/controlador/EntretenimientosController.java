@@ -6,7 +6,6 @@
 package controlador;
 
 import dao.EntretenimientoInterface;
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -20,7 +19,7 @@ import modelo.Entretenimiento;
  */
 @ManagedBean(name = "EntController")
 @SessionScoped
-public class EntretenimientosController implements Serializable{
+public class EntretenimientosController {
     
     @EJB
     private EntretenimientoInterface ejbEnt;
@@ -30,6 +29,7 @@ public class EntretenimientosController implements Serializable{
     
     @PostConstruct
     public void init(){
+<<<<<<< HEAD:Fantur2/src/main/java/controlador/EntretenimientosController.java
         try {
                     entretenimiento = ejbEnt.findAll();
                     ent = new Entretenimiento();
@@ -37,6 +37,9 @@ public class EntretenimientosController implements Serializable{
         } catch (Exception e) {
         }
 
+=======
+        entretenimiento = ejbEnt.findAll();
+>>>>>>> parent of c233edc... Falta Alojamiento y Entretenimiento:Fantur/src/main/java/controlador/EntretenimientosController.java
     }
     
     public List<Entretenimiento> getEntretenimiento() {
