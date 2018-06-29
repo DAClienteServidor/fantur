@@ -26,6 +26,8 @@ public interface ContrataInterface {
     Contrata find(Object id);
     
     Paquete findById(int id);
+    
+    List<Contrata> findByUsu(String dni);
 
     List<Contrata> findAll();
 
