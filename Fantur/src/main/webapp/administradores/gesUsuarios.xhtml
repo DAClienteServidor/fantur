@@ -47,9 +47,9 @@
                             <p:column style="width:32px;text-align: center">
                                 
                                 <!--Botones de editar y eliminar-->
-                                <p:commandButton icon="ui-icon-pencil" title="View" actionListener="#{registrar.leer(p)}"
+                                <p:commandButton icon="ui-icon-pencil" title="View" actionListener="#{UsuController.leerUsuSelec(p)}"
                                                  oncomplete="PF('wdialogo2').show();" update=":dialogo2"/>
-                                 <p:commandButton icon="ui-icon-trash" title="View" actionListener="#{registrar.leer(p)}" 
+                                <p:commandButton icon="ui-icon-trash" title="View" actionListener="#{UsuController.leerUsuSelec(p)}" 
                                                   oncomplete="PF('wdialogo3').show();" update=":dialogo3"/>
                             </p:column>
                         </p:dataTable>
@@ -67,32 +67,32 @@
                     <h:form>
                         <p:panelGrid columns="2">
                             <p:outputLabel for="txtNyP" value="Nombre y Apellido"/>
-                            <p:inputText id="txtNyP" required="true" value="#{registrar.usuario.nombre}" />
+                            <p:inputText id="txtNyP" required="true" value="#{UsuController.usuario1.nombre}" />
 
                             <p:outputLabel for="txtDNI" value="DNI"/>
-                            <p:inputText id="txtDNI" required="true" value="#{registrar.usuario.dni}"/>
+                            <p:inputText id="txtDNI" required="true" value="#{UsuController.usuario1.dni}"/>
 
                             <p:outputLabel for="txtDir" value="Direccion"/>
-                            <p:inputText id="txtDir" required="true" value="#{registrar.usuario.direccion}" />
+                            <p:inputText id="txtDir" required="true" value="#{UsuController.usuario1.direccion}" />
 
                             <p:outputLabel for="txtTel" value="Telefono"/>
-                            <p:inputText id="txtTel" required="true" value="#{registrar.usuario.telefono}"/>
+                            <p:inputText id="txtTel" required="true" value="#{UsuController.usuario1.telefono}"/>
 
                             <p:outputLabel for="txtCorreo" value="Correo electronico"/>
-                            <p:inputText id="txtCorreo" required="true" value="#{registrar.usuario.email}"/>
+                            <p:inputText id="txtCorreo" required="true" value="#{UsuController.usuario1.email}"/>
                             
                             <p:outputLabel for="txtTipo" value="Tipo de Usuario"/>
-                            <p:selectOneRadio id="txtTipo" value="#{registrar.rol.rol}">
+                            <p:selectOneRadio id="txtTipo" value="#{UsuController.rol.rol}">
                                 <f:selectItem itemValue="Usuario" itemLabel="Usuario"></f:selectItem>
                                 <f:selectItem itemValue="Administrador" itemLabel="Administrador"></f:selectItem>
                             </p:selectOneRadio>
                             
                             
                             <p:outputLabel for="txtUsu" value="Usuario"/>
-                            <p:inputText id="txtUsu" required="true" value="#{registrar.usuario.usuario}"/>
+                            <p:inputText id="txtUsu" required="true" value="#{UsuController.usuario1.usuario}"/>
 
                             <p:outputLabel for="Clave1" value="Contraseña" />
-                            <p:password id="Clave1"  required="true" value="#{registrar.usuario.contrasena}"
+                            <p:password id="Clave1"  required="true" value="#{UsuController.usuario1.contrasena}"
                                         match="Clave2" feedback="true" promptLabel="Ingrese una contraseña"
                                         validatorMessage="Las claves no coinciden" weakLabel="Bajo" strongLabel="Fuerte"
                                         goodLabel="Medio"/>
@@ -105,7 +105,7 @@
                         
                         <br/>
                         <!--botones de registrar y -->
-                        <p:commandButton value="Registrar" icon="ui-icon-check" actionListener="#{registrar.registrarAdmin()}" 
+                        <p:commandButton value="Registrar" icon="ui-icon-check" actionListener="#{UsuController.registrarAdmin()}" 
                                          update=":form:basicDT" oncomplete="PF('wdialogo').hide();"/>                                             
                         <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo').hide();"/>
                                                     
@@ -122,19 +122,17 @@
                         <p:panelGrid columns="2">
                             
                             <p:outputLabel for="txtNyP" value="Nombre y Apellido"/>
-                            <p:inputText id="txtNyP" required="true" value="#{registrar.usuario.nombre}" />
+                            <p:inputText id="txtNyP" required="true" value="#{UsuController.usuario1.nombre}" />
 
-                            <p:outputLabel for="txtDNI" value="DNI"/>
-                            <p:inputText id="txtDNI" required="true" value="#{registrar.usuario.dni}"/>
-
+                           
                             <p:outputLabel for="txtDir" value="Direccion"/>
-                            <p:inputText id="txtDir" required="true" value="#{registrar.usuario.direccion}" />
+                            <p:inputText id="txtDir" required="true" value="#{UsuController.usuario1.direccion}" />
 
                             <p:outputLabel for="txtTel" value="Telefono"/>
-                            <p:inputText id="txtTel" required="true" value="#{registrar.usuario.telefono}"/>
+                            <p:inputText id="txtTel" required="true" value="#{UsuController.usuario1.telefono}"/>
 
                             <p:outputLabel for="txtCorreo" value="Correo electronico"/>
-                            <p:inputText id="txtCorreo" required="true" value="#{registrar.usuario.email}"/>
+                            <p:inputText id="txtCorreo" required="true" value="#{UsuController.usuario1.email}"/>
                             
                             
                         </p:panelGrid>
@@ -142,7 +140,7 @@
                         <br/>
                         <!--botones de modificar y cancelar -->
                         
-                        <p:commandButton value="Modificar" icon="ui-icon-check" actionListener="#{registrar.modificarAdmin()}" 
+                        <p:commandButton value="Modificar" icon="ui-icon-check" actionListener="#{UsuController.modificarAdmin()}" 
                                          update=":form:basicDT" oncomplete="PF('wdialogo2').hide();"/>                        
                         <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo2').hide();"/>
                                                     
@@ -160,7 +158,7 @@
                      
                       <p:outputLabel  value="Seguro que desea eliminar el Usuario?"/>
                       <!-- botones de aceptar y cancelar-->
-                      <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{registrar.Eliminar()}" 
+                      <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{UsuController.eliminar()}" 
                                          update=":form:basicDT" oncomplete="PF('wdialogo3').hide();"/>                        
                         <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo3').hide();"/>
                            

@@ -16,7 +16,7 @@
 
                     <p:dataTable id="basicDT" var="p" value="#{EntController.entretenimiento}">
                         <f:facet name="header">
-                            Paquetes
+                            Entretenimientos
                         </f:facet>
                         <p:column headerText="Id">
                             <h:outputText value="#{p.id}" />
@@ -43,7 +43,7 @@
                           <p:commandButton update=":Modif"  icon="ui-icon-pencil" 
                                              oncomplete="PF('wModif').show();" 
                                              actionListener="#{EntController.leer(p)}" title="View"></p:commandButton>
-                            <p:commandButton update=":Eliminar" oncomplete="PF('wEliminar').show();" 
+                                             <p:commandButton update=":Eliminar" oncomplete="PF('wEliminar').show();"  
                                              icon="ui-icon-trash" actionListener="#{EntController.leer(p)}" title="View"></p:commandButton>
                         
                         </p:column>
@@ -132,7 +132,7 @@
                       <p:outputLabel  value="Seguro que desea eliminar el Entretenimiento?"/>
                       <!-- botones de aceptar y cancelar-->
                       <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{EntController.EliminarEntretenimiento()}" 
-                                         update=":form:basicDT" oncomplete="PF('wEliminar').hide();"/>                        
+                                       update=":form:basicDT" oncomplete="PF('wEliminar').hide();" />                        
                       <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wEliminar').hide();"/>
                            
                     </h:form>

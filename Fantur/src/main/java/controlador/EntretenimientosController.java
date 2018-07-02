@@ -33,6 +33,7 @@ public class EntretenimientosController {
         try {
                     entretenimiento = ejbEnt.findAll();
                     ent = new Entretenimiento();
+                    
             
         } catch (Exception e) {
         }
@@ -82,7 +83,7 @@ public class EntretenimientosController {
     
         public void EliminarEntretenimiento(){
             try {
-                ejbEnt.remove(ent);
+                ejbEnt.remove(ent);    
             } catch (Exception e) {
             }
         }

@@ -62,6 +62,7 @@ public class AlojamientosController {
     public void resgistrarNuevoAlojamiento(){
         try {
             ejbAlo.create(aloj);
+            alojamiento = ejbAlo.findAll();
         } catch (Exception e) {
         } 
     }
@@ -84,6 +85,7 @@ public class AlojamientosController {
         public void EliminarAlojamiento(){
             try {
                 ejbAlo.remove(aloj);
+                alojamiento = ejbAlo.findAll();
             } catch (Exception e) {
             }
         }
