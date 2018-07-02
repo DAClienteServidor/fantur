@@ -62,6 +62,12 @@ public class RegistroController implements Serializable{
           rol.setUsuario(usuario);
           rol.setUsuarioDni(usuario.getDni());
           RolEJB.create(rol);
+          MailController email = new MailController();
+          email.setDestinatarios(usuario.getEmail());
+          email.setCheck("No");
+          email.setMensaje("Su cuenta: "+ usuario.getUsuario() + " con clave:" + usuario.getContrasena()+" ha sido creada");
+          email.setTitulo("Registro Exitoso");
+          email.send();
         } catch (Exception e) {
             System.out.print("No anda che" + e.getMessage());
         }
