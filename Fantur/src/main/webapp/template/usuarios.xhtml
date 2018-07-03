@@ -8,9 +8,9 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-   
+        <f:event type="preRenderView" listener="#{loginControl.verificarUsuario()}"/>
         
-        <title>Facelets Template</title>
+        <title>FANTUR</title>
     </h:head>
 
     <h:body>
@@ -32,7 +32,7 @@
                     <p:menuitem value="  Contactanos"/>
                     <f:facet name="options">
                         <p:outputLabel style="margin-right:10px" value="#{loginControl.nombreUsuario()}"/>
-                        <p:commandButton value="Cerrar Sesion" actionListener="#{loginControl.cerrarSesion()}" action="./index?faces-redirect=true"/>
+                        <p:commandButton value="Cerrar Sesion" actionListener="#{loginControl.cerrarSesion()}" action="/index.xhtml?faces-redirect=true" ajax="false"/>
                     </f:facet>
                 </p:menubar>
             </h:form>

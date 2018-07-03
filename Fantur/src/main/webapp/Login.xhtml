@@ -8,8 +8,7 @@
 
     <ui:composition template="./template/plantillaInicio.xhtml">
         <ui:define name="body">
-            <h:outputStylesheet name="/css/cssLayout.css"/>
-            <div id="login">     
+            <h:outputStylesheet name="/css/cssLayout.css"/>  
                 <h:form>
                
                     <h:panelGrid columns="2">
@@ -22,7 +21,6 @@
                         <p:commandButton icon="ui-icon-key" value="Iniciar sesion" action="#{loginControl.iniciarSesion()}" ajax="false"/>
                     </h:panelGrid>
                  </h:form> 
-            </div>
         </ui:define>
     </ui:composition>
 </html>

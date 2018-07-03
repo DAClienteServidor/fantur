@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import dao.ContrataInterface;
@@ -35,9 +30,9 @@ public class ContratosController {
     public void init() {
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
-        if(!us.getRol().getRol().equals("Usuario")){
+        if (!us.getRol().getRol().equals("Usuario")) {
             contrata = ejbCon.findByUsu(us.getDni());
-        }else{
+        } else {
             contrata = ejbCon.findAll();
         }
     }
@@ -45,27 +40,34 @@ public class ContratosController {
     public String cargar(Paquete paq) {
         contrato = new Contrata();
         contrato.setContrataPK(new modelo.ContrataPK());
-               
+
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
-        
+
         validar val = new validar();
         contrato.setPermitido(val.getVal(us.getDni()));
-        
+
         logger.info(String.format("Llega usuario", paq.getNombre()));
         contrato.setPaquete1(paq);
         logger.info(String.format("Anda paquete", paq.getIdpaquete()));
-        
+
         logger.info(String.format("Llega usuario", us.getNombre()));
         contrato.setUsuario1(us);
-        logger.info(String.format("Anda usuario", us.getNombre()));
+        logger.info(String.format("EMAAAAILLLLL", us.getEmail()));
         contrato.setPagado("Si");
-        
+
         contrato.setFechaContrato(new Date());
 
         contrato.getContrataPK().setUsuario(contrato.getUsuario1().getDni());
         contrato.getContrataPK().setPaquete(contrato.getPaquete1().getIdpaquete());
         ejbCon.create(contrato);
+
+        MailController email = new MailController();
+        email.setDestinatarios(us.getEmail());
+        email.setCheck("No");
+        email.setMensaje("Paquete "+ paq.getNombre() + "comprado con exito");
+        email.setTitulo("Compra de paquete");
+        email.send();
         return "./misPaquetes.xhtml";
     }
 

@@ -11,6 +11,7 @@
         <h:outputStylesheet name="/css/default.css"/>
         <h:outputStylesheet name="/css/cssLayout.css"/>
         <title>Facelets Template</title>
+        <f:event type="preRenderView" listener="#{loginControl.verificarAdministrador()}"/>
     </h:head>
 
     <h:body>
@@ -25,7 +26,7 @@
 
             <p:menubar>
                 <f:facet name="options">
-                    <p:commandButton value="Cerrar Sesion" icon="ui-icon-extlink" action="#{loginControl.cerrarSesion()}" ajax="false"/>
+                    <p:commandButton value="Cerrar Sesion" icon="ui-icon-extlink" actionListener="#{loginControl.cerrarSesion()}" action="/index.xhtml?faces-redirect=true" ajax="false"/>
                 </f:facet>
             </p:menubar>
         </h:form>

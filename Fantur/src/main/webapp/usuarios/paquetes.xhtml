@@ -23,7 +23,7 @@
                                     <h:outputText value="#{p.precio}" />
                                 </h:panelGrid>
                                 <p:commandButton value="Comprar" oncomplete="PF('wdialogo').show();" actionListener="#{PaqController.leer(p)}"/>
-                                <p:dialog id="dialogo" widgetVar="wdialogo" header="Compra" modal="true" resizable="false" closeOnEscape="true" draggable="false">
+                                <p:dialog id="dialogo" widgetVar="wdialogo" header="Compra" modal="true" resizable="false" closeOnEscape="true" draggable="false" >
                                     <h:form>
                                         <p:panelGrid columns="1">
                                             <p:outputLabel value="Paquete: #{PaqController.paq.nombre}"/>

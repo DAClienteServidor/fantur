@@ -94,4 +94,29 @@ public class LoginControl implements Serializable {
     public String nombreUsuario() {
         return usuario.getNombre();
     }
+    
+    public void verificarAdministrador(){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+            
+            if(us == null || !us.getRol().getRol().equals("Administrador")){
+                context.getExternalContext().redirect("../permisosInsuficientes.xhtml");
+            }
+            
+        } catch (Exception e) {
+        }
+    }
+        public void verificarUsuario(){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+            
+            if(us == null || !us.getRol().getRol().equals("Usuario")){
+                context.getExternalContext().redirect("../permisosInsuficientes.xhtml");
+            }
+            
+        } catch (Exception e) {
+        }
+    }
 }
