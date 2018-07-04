@@ -11,38 +11,38 @@
 
             <ui:define name="body">
                 <ui:repeat var="p" value="#{PaqController.paquete}">
-                    <p:panel id="basic" header="Paquete #{p.nombre}" style="margin-bottom:20px">
-                        <h:form>
-                            <h:panelGrid columns="5" cellpadding="10">
-                                <h:panelGrid columns="1">
-                                    <p:graphicImage value="/resources/Imagenes/palacio.jpg" height="200px" width="250px"/>
-                                </h:panelGrid>
-                                <h:panelGrid columns="1">
-                                    <h:outputText value="Datos del Paquete" />
-                                    <h:outputText value="#{p.precio}" />
-                                </h:panelGrid>
-                                <p:commandButton value="Comprar" oncomplete="PF('wdialogo').show();" update="dialogo"/>
-                                <p:dialog id="dialogo" widgetVar="wdialogo" header="Compra" modal="true" resizable="false" closeOnEscape="true" draggable="false">
-                                    <h:form>
-                                        <p:panelGrid columns="1">
-                                            <p:outputLabel value="Paquete: #{p.nombre}"/>
-                                            <p:outputLabel value="Precio: #{p.precio}"/>
-                                            <h:panelGrid columns="1">
-                                                <h:outputText value="Numero de tarjeta de credito" />
-                                                <p:inputText required="true"/>
-                                                <h:outputText value="Codigo de seguridad" />
-                                                <p:inputText required="true"/>
-                                                <h:outputText value="Fecha de vencimiento" />
-                                                <p:inputText required="true"/>
-                                            </h:panelGrid>
-                                        </p:panelGrid>
-                                        <br/>
-                                        <p:commandButton value="Comprar" icon="ui-icon-check" action="#{ConController.cargar(p)}"/>
-                                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo').hide();"/>                               
-                                    </h:form>
-                                </p:dialog>
+                    <p:panel id="basic" header="Paquete #{p.nombre}: #{p.precio}$" style="margin-bottom:20px">
+
+                        <h:panelGrid columns="5" cellpadding="10">
+                            <h:panelGrid columns="1">
+                                <p:graphicImage value="/resources/Imagenes/palacio.jpg" height="200px" width="250px"/>
                             </h:panelGrid>
-                        </h:form>
+                            <h:panelGrid columns="1">
+                                <h:outputText value="Datos del Alojamiento" style="font-weight: bold;text-decoration: underline;"/>
+                                <h:outputText value="Nombre: #{p.alojamiento.nombre}" />
+                                <h:outputText value="Tipo: #{p.alojamiento.tipo}" />
+                                <h:outputText value="Categoria: #{p.alojamiento.categoria}" />
+                                <h:outputText value="Descripcion: #{p.alojamiento.descripcion}" />
+                            </h:panelGrid>    
+                            <h:panelGrid columns="1">
+
+                                <h:outputText value="Datos del Transporte" style="font-weight: bold;text-decoration: underline;"/>
+                                <h:outputText value="Origen: #{p.pasaje.origen}" />
+                                <h:outputText value="Destino: #{p.pasaje.destino}" />
+                                <h:outputText value="Fecha Ida: #{p.pasaje.fechaIda}" />
+                                <h:outputText value="Fecha Vuelta: #{p.pasaje.fechaVuelta}" />
+                                <h:outputText value="Hora: #{p.pasaje.hora}" />
+                                <h:outputText value="Tipo: #{p.pasaje.tipo}" />
+                            </h:panelGrid>
+                            <h:panelGrid columns="1">
+                                <h:outputText value="Datos del Entretenimiento" style="font-weight: bold;text-decoration: underline;"/>
+                                <h:outputText value="Nombre: #{p.entretenimiento.nombre}" />
+                                <h:outputText value="Fecha: #{p.entretenimiento.fecha}" />
+                                <h:outputText value="Hora: #{p.entretenimiento.hora}" />
+                                <h:outputText value="Lugar: #{p.entretenimiento.lugar}" />
+                                <h:outputText value="Descripcion: #{p.entretenimiento.descripcion}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
                     </p:panel>
 
                 </ui:repeat>

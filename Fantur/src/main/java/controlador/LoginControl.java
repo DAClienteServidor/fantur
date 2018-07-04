@@ -92,7 +92,13 @@ public class LoginControl implements Serializable {
     }
 
     public String nombreUsuario() {
-        return usuario.getNombre();
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+            return us.getNombre();
+        } catch (Exception e) {
+        }
+        return "";
     }
     
     public void verificarAdministrador(){

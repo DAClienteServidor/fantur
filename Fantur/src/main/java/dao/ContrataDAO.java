@@ -43,7 +43,7 @@ public class ContrataDAO extends DAO<Contrata> implements ContrataInterface {
 
             Root<Contrata> e = cq.from(Contrata.class);
             
-            cq.where(cb.and(cb.equal(e.get("usuario"), dni)));
+            cq.where(cb.equal(e.get("contrataPK").get("usuario"), dni));
 
             Query query = em.createQuery(cq);
             
@@ -54,26 +54,4 @@ public class ContrataDAO extends DAO<Contrata> implements ContrataInterface {
         }
     }
     
-    @Override
-    public Paquete findById(int id){
-        Paquete paquete = null;
-        try {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Paquete> cq = cb.createQuery(Paquete.class);
-
-            Root<Paquete> e = cq.from(Paquete.class);
-            
-            cq.where(cb.and(cb.equal(e.get("idpaquete"), id)));
-
-            Query query = em.createQuery(cq);
-            
-            List<Paquete> lista = query.getResultList();
-            if (!lista.isEmpty()) {
-                paquete = lista.get(0);
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-        return paquete;
-    };
 }

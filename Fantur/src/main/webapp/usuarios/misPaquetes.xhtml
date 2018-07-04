@@ -11,32 +11,32 @@
         <ui:composition template="./../template/usuarios.xhtml">
 
             <ui:define name="body">
-                <ui:repeat var="p" value="#{ConController.contrato}">
+                <ui:repeat var="p" value="#{ConController.contrata}">
                     <h:form>
-                        <p:panel id="basic" header="Paquete #{p.paquete1.nombre}" style="margin-bottom:20px">
+                        <p:panel id="basic" header="Paquete #{p.paquete1.nombre}: #{p.paquete1.precio}$" style="margin-bottom:20px">
                             <h:panelGrid columns="5" cellpadding="10">
                                 <h:panelGrid columns="1">
                                     <p:graphicImage value="/resources/Imagenes/palacio.jpg" height="200px" width="250px"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="1">
-                                    <h:outputText value="Datos del Paquete" />
-                                    <h:outputText value="#{p.paquete1.precio}" />
-                                    
-                                    <h:outputText value="Datos del Alojamiento" />
+                                    <h:outputText value="Datos del Alojamiento" style="font-weight: bold;text-decoration: underline;"/>
                                     <h:outputText value="Nombre: #{p.paquete1.alojamiento.nombre}" />
                                     <h:outputText value="Tipo: #{p.paquete1.alojamiento.tipo}" />
                                     <h:outputText value="Categoria: #{p.paquete1.alojamiento.categoria}" />
                                     <h:outputText value="Descripcion: #{p.paquete1.alojamiento.descripcion}" />
-                                    
-                                    <h:outputText value="Datos del Transporte" />
+                                </h:panelGrid>    
+                                <h:panelGrid columns="1">
+
+                                    <h:outputText value="Datos del Transporte" style="font-weight: bold;text-decoration: underline;"/>
                                     <h:outputText value="Origen: #{p.paquete1.pasaje.origen}" />
                                     <h:outputText value="Destino: #{p.paquete1.pasaje.destino}" />
                                     <h:outputText value="Fecha Ida: #{p.paquete1.pasaje.fechaIda}" />
                                     <h:outputText value="Fecha Vuelta: #{p.paquete1.pasaje.fechaVuelta}" />
                                     <h:outputText value="Hora: #{p.paquete1.pasaje.hora}" />
                                     <h:outputText value="Tipo: #{p.paquete1.pasaje.tipo}" />
-                                    
-                                    <h:outputText value="Datos del Entretenimiento" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <h:outputText value="Datos del Entretenimiento" style="font-weight: bold;text-decoration: underline;"/>
                                     <h:outputText value="Nombre: #{p.paquete1.entretenimiento.nombre}" />
                                     <h:outputText value="Fecha: #{p.paquete1.entretenimiento.fecha}" />
                                     <h:outputText value="Hora: #{p.paquete1.entretenimiento.hora}" />

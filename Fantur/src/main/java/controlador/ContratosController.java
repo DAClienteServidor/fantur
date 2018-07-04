@@ -30,11 +30,7 @@ public class ContratosController {
     public void init() {
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
-        if (!us.getRol().getRol().equals("Usuario")) {
-            contrata = ejbCon.findByUsu(us.getDni());
-        } else {
-            contrata = ejbCon.findAll();
-        }
+        contrata = ejbCon.findByUsu(us.getDni());
     }
 
     public String cargar(Paquete paq) {
@@ -46,16 +42,9 @@ public class ContratosController {
 
         validar val = new validar();
         contrato.setPermitido(val.getVal(us.getDni()));
-
-        logger.info(String.format("Llega usuario", paq.getNombre()));
         contrato.setPaquete1(paq);
-        logger.info(String.format("Anda paquete", paq.getIdpaquete()));
-
-        logger.info(String.format("Llega usuario", us.getNombre()));
-        contrato.setUsuario1(us);
-        logger.info(String.format("EMAAAAILLLLL", us.getEmail()));
+        contrato.setUsuario1(us);    
         contrato.setPagado("Si");
-
         contrato.setFechaContrato(new Date());
 
         contrato.getContrataPK().setUsuario(contrato.getUsuario1().getDni());
@@ -68,14 +57,15 @@ public class ContratosController {
         email.setMensaje("Paquete "+ paq.getNombre() + "comprado con exito");
         email.setTitulo("Compra de paquete");
         email.send();
+        contrata = ejbCon.findByUsu(us.getDni());
         return "./misPaquetes.xhtml";
     }
 
-    public List<Contrata> getContrato() {
+    public List<Contrata> getContrata() {
         return contrata;
     }
 
-    public void setContrato(List<Contrata> con) {
+    public void setContrata(List<Contrata> con) {
         this.contrata = con;
     }
 

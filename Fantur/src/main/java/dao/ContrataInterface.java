@@ -8,12 +8,7 @@ package dao;
 import java.util.List;
 import javax.ejb.Local;
 import modelo.Contrata;
-import modelo.Paquete;
 
-/**
- *
- * @author usuario
- */
 @Local
 public interface ContrataInterface {
 
@@ -24,8 +19,6 @@ public interface ContrataInterface {
     void remove(Contrata contrata);
 
     Contrata find(Object id);
-    
-    Paquete findById(int id);
     
     List<Contrata> findByUsu(String dni);
 

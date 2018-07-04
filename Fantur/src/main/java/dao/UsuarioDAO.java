@@ -66,7 +66,7 @@ public class UsuarioDAO extends DAO<Usuario> implements UsuarioInterface {
 
             Root<Usuario> e = cq.from(Usuario.class);
             
-            cq.where(cb.and(cb.equal(e.get("usuario"), username)));
+            cq.where(cb.equal(e.get("usuario"), username));
 
             Query query = em.createQuery(cq);
             

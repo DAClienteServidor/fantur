@@ -29,24 +29,79 @@
                     <p:menuitem value="  Contactanos"/>
 
                     <f:facet name="options">
-                        <p:commandButton value="Iniciar Sesion" icon="ui-icon-extlink" oncomplete="PF('wdialogo').show();"/>
-                        <p:dialog id="dialogo" widgetVar="wdialogo" header="Inicio de sesion" modal="true" resizable="false" closeOnEscape="true" draggable="false">
-                            <h:form>
-                                <h:panelGrid columns="2">
-                                    <p:outputLabel for="txtUsuario" value="Usuario" />
-                                    <p:inputText id="txtUsuario" required="true" value="#{loginControl.usu}"/>
-
-                                    <p:outputLabel for="txtClave" value="Contraseña" />
-                                    <p:password id="txtClave" required="true" value="#{loginControl.pas}"/>
-
-                                    <p:commandButton icon="ui-icon-key" value="Iniciar sesion" action="#{loginControl.iniciarSesion()}" ajax="false"/>
-                                    <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo').hide();"/>     
-                                </h:panelGrid>                           
-                            </h:form>
-                        </p:dialog>
+                        <p:commandButton value="Iniciar Sesion" icon="ui-icon-extlink" oncomplete="PF('wini').show();"/>
                     </f:facet>
                 </p:menubar>
             </h:form>
+            <p:dialog id="dialogo" widgetVar="wini" header="Inicio de sesion" modal="true" resizable="false" closeOnEscape="true" draggable="false">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="txtUsuario" value="Usuario" />
+                        <p:inputText id="txtUsuario" required="true" value="#{loginControl.usu}"/>
+
+                        <p:outputLabel for="txtClave" value="Contraseña" />
+                        <p:password id="txtClave" required="true" value="#{loginControl.pas}"/>
+
+                        <p:commandButton icon="ui-icon-key" value="Iniciar sesion" action="#{loginControl.iniciarSesion()}" ajax="false"/>
+                        <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wini').hide();"/>    
+
+                        <p:commandLink value="Crear una cuenta" oncomplete="PF('wdialogo2').show();"/>
+
+                    </h:panelGrid>                           
+                </h:form>
+            </p:dialog>
+            <p:dialog id="dialogo2" widgetVar="wdialogo2" header="Crear una nueva cuenta" modal="true" resizable="false" closeOnEscape="true" draggable="false"
+                      style="max-height:85%;overflow-y: scroll;">
+                <h:form>
+                    <p:fieldset legend="Datos personales" style="border-color: #045491">
+                        <h:panelGrid columns="3" cellpadding="10" id="pgDatos">
+                            <p:outputLabel for="txtNyP" value="Nombre y Apellido"/>
+                            <p:inputText id="txtNyP" required="true" value="#{registrar.usuario.nombre}" />
+                            <p:message for="txtNyP"/>
+
+                            <p:outputLabel for="txtDNI" value="DNI"/>
+                            <p:inputText id="txtDNI" required="true" value="#{registrar.usuario.dni}"/> 
+                            <p:message for="txtDNI"/>
+
+                            <p:outputLabel for="txtDir" value="Direccion"/>
+                            <p:inputText id="txtDir" required="true" value="#{registrar.usuario.direccion}"/>
+                            <p:message for="txtDir"/>
+
+                            <p:outputLabel for="txtTel" value="Telefono"/>
+                            <p:inputText id="txtTel" required="true" value="#{registrar.usuario.telefono}"/>
+                            <p:message for="txtTel"/>
+
+                            <p:outputLabel for="txtCorreo" value="Correo electronico"/>
+                            <p:inputText id="txtCorreo" required="true" value="#{registrar.usuario.email}"/>
+                            <p:message for="txtCorreo"/>
+
+
+                        </h:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Datos de Usuario" style="border-color: #045491" id="pgUsuario">
+                        <h:panelGrid columns="3" cellpadding="10">
+
+                            <p:outputLabel for="txtUsu" value="Usuario"/>
+                            <p:inputText id="txtUsu" required="true" value="#{registrar.usuario.usuario}"/>
+                            <p:message for="txtUsu"/>
+
+
+                            <p:outputLabel for="Clave1" value="Contraseña" />
+                            <p:password id="Clave1"  required="true" value="#{registrar.usuario.contrasena}"
+                                        match="Clave2" feedback="true" promptLabel="Ingrese una contraseña"
+                                        validatorMessage="Las claves no coinciden" weakLabel="Bajo" strongLabel="Fuerte" goodLabel="Medio"/>
+                            <p:message for="Clave1"/>
+
+                            <p:outputLabel   value="Repetir Contraseña"/>
+                            <p:password id="Clave2"/>
+
+                        </h:panelGrid>    
+                    </p:fieldset> 
+                    <p:commandButton icon="ui-icon-check" value="Registrar" update="pgDatos,pgUsuario" action="#{registrar.registrar()}" ajax="false"/>
+                    <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo2').hide();"/> 
+                </h:form>
+            </p:dialog>
         </div>
 
         <div id="content">

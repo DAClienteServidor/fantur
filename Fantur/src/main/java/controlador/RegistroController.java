@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import modelo.Rol;
 import modelo.Usuario;
 
@@ -55,10 +56,11 @@ public class RegistroController implements Serializable{
         this.rol = rol;
     }
        
-    public void registrar() {
+    public String registrar() {
         try {
+          FacesContext context = FacesContext.getCurrentInstance();
           UsuarioEJB.create(usuario);
-          rol.setRol("usuario");
+          rol.setRol("Usuario");
           rol.setUsuario(usuario);
           rol.setUsuarioDni(usuario.getDni());
           RolEJB.create(rol);
@@ -68,9 +70,12 @@ public class RegistroController implements Serializable{
           email.setMensaje("Su cuenta: "+ usuario.getUsuario() + " con clave:" + usuario.getContrasena()+" ha sido creada");
           email.setTitulo("Registro Exitoso");
           email.send();
+          context.getExternalContext().getSessionMap().put("usuario", usuario);
+          return "/usuarios/index?faces-redirect=true";
         } catch (Exception e) {
             System.out.print("No anda che" + e.getMessage());
         }
+        return "";
     }
     
     public void registrarAdmin(){
