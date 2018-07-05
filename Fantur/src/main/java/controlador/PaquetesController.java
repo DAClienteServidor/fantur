@@ -5,23 +5,21 @@
  */
 package controlador;
 
+import dao.AlojamientoInterface;
 import dao.ContrataInterface;
+import dao.EntretenimientoInterface;
 import dao.PaqueteInterface;
+import dao.PasajeInterface;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import modelo.Alojamiento;
-import modelo.Contrata;
-import modelo.ContrataPK;
 import modelo.Entretenimiento;
 import modelo.Paquete;
 import modelo.Pasaje;
-import modelo.Usuario;
 
 @ManagedBean(name = "PaqController")
 @SessionScoped
@@ -29,18 +27,31 @@ public class PaquetesController implements Serializable {
 
     @EJB
     private ContrataInterface ejbCon;
+    
+    @EJB
+    private PasajeInterface ejbPasaje;
 
     @EJB
     private PaqueteInterface ejbPaquete;
+    
+    @EJB
+    private AlojamientoInterface ejbAlojamiento;
     private List<Paquete> paquete;
     private Paquete paq;
     private Entretenimiento ent;
     private Pasaje pas;
     private Alojamiento aloj;
+    
+    private String entId;
+    private String alojId;
+    private String pasId;
+    
+    @EJB
+    private EntretenimientoInterface ejbEntretenimiento;
+    
             
 
     private Paquete paquete1;
-    Paquete paquetenue = new Paquete();
 
     
     @PostConstruct
@@ -48,9 +59,9 @@ public class PaquetesController implements Serializable {
         paquete = ejbPaquete.findAll();
         //this.paq = null;
         paquete1 = new Paquete();
-        ent = new Entretenimiento();
-        pas = new Pasaje();
-        aloj = new Alojamiento();
+
+
+
     }
     
 
@@ -63,7 +74,7 @@ public class PaquetesController implements Serializable {
     }
 
     public void leer(Paquete paq) {
-        this.paq = paq;
+        paquete1 = paq;
     }
 
     public Paquete getPaq() {
@@ -83,13 +94,6 @@ public class PaquetesController implements Serializable {
         this.paquete1 = paquete1;
     }
 
-    public Paquete getPaquetenue() {
-        return paquetenue;
-    }
-
-    public void setPaquetenue(Paquete paquetenue) {
-        this.paquetenue = paquetenue;
-    }
 
     public Entretenimiento getEnt() {
         return ent;
@@ -117,49 +121,96 @@ public class PaquetesController implements Serializable {
     
     
      //------------------------------------------------------
+
+    public String getEntId() {
+        return entId;
+    }
+
+    public void setEntId(String entId) {
+        this.entId = entId;
+    }
+
+    public String getAlojId() {
+        return alojId;
+    }
+
+    public void setAlojId(String alojId) {
+        this.alojId = alojId;
+    }
+
+    public String getPasId() {
+        return pasId;
+    }
+
+    public void setPasId(String pasId) {
+        this.pasId = pasId;
+    }
+
+
+    
+    
     
      public  void leerPaqSelct(Paquete paqueteSelec){
         paquete1 = paqueteSelec;
     }
     
     public void modificarPaquete(){
+        paquete1.setPasaje(pas);
+        paquete1.setAlojamiento(aloj);
+        paquete1.setEntretenimiento(ent);
         ejbPaquete.edit(paquete1);
     } 
     
     public void EliminarPaquete(){
             try {
             ejbPaquete.remove(paquete1);
+            paquete = ejbPaquete.findAll();
         } catch (Exception e) {
         }
     }
     
-    public void nuevoPaquete() {        
-            paquetenue = paquete1;
-            ejbPaquete.create(paquetenue);   
+    public void nuevoPaquete() {  
+            paquete1.setPasaje(pas);
+            paquete1.setAlojamiento(aloj);
+            paquete1.setEntretenimiento(ent);
+            ejbPaquete.create(paquete1);
+             paquete = ejbPaquete.findAll();
     }
     
     //-------------------------------------------------------
     
+    public void cargarEntretenimiento(){
+        ent = new Entretenimiento();
+        try {
+            Entretenimiento entre = ejbEntretenimiento.find(Integer.parseInt(entId));
+            this.ent = entre;
+        } catch (Exception e) {
+            System.out.print("Me tiene podrido esta poronga en entretenimiento");
+        }
+    }
+    
+    public void cargarPasaje(){
+        pas = new Pasaje();
+        try { 
+            this.pas = ejbPasaje.find(Integer.parseInt(pasId));
+            
+        } catch (Exception e) {
+            System.out.print("Me tiene podrido esta poronga en pasaje");
+        }
+    }
+    
+    public void cargarAlojamiento(){
+        aloj = new Alojamiento();
+        try {
+            this.aloj = ejbAlojamiento.find(Integer.parseInt(alojId));
+        } catch (Exception e) {
+            System.out.print("Me tiene podrido esta poronga en Alojamiento");
+        }
+    }
+    
+    
 
-    /** public String cargar() {
-        ContrataPK pk = new ContrataPK();
-        FacesContext context = FacesContext.getCurrentInstance();
-        Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
 
-        pk.setPaquete(this.paq.getIdpaquete());
-        System.out.println(pk.getPaquete());
-        pk.setUsuario(us.getUsuario());
-        contrato.setContrataPK(pk);
-        contrato.setPaquete1(this.paq);
-        contrato.setPagado("Si");
-
-        contrato.setUsuario1(us);
-        contrato.setPermitido("Si");
-        contrato.setFechaContrato(new Date());
-        ejbCon.create(contrato);
-
-        return "./index.xhtml";
-    } **/
 
     
     

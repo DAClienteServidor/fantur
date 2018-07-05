@@ -29,8 +29,11 @@ public class UsuariosController {
     
     private Usuario usu;
     
+
+    
         @EJB
     private RolInterface RolEJB;
+    private List<Rol> roles; 
     
     
         private Usuario usuario1; 
@@ -39,6 +42,7 @@ public class UsuariosController {
     @PostConstruct
     public void init(){
         usuario = ejbUsu.findAll();
+        roles = RolEJB.findAll();
             usuario1 = new Usuario();
             rol = new Rol();
     }
@@ -117,6 +121,7 @@ public class UsuariosController {
         public  void eliminar(){
         ejbUsu.remove(usuario1);
         usuario = ejbUsu.findAll();
+        
     }
     
     

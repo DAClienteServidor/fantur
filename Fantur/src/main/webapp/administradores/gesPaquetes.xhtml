@@ -45,12 +45,12 @@
                             </p:commandButton>
                             
                             <p:commandButton update="" oncomplete="PF('wEliminarPaquete').show();" icon="ui-icon-trash" 
-                                             title="View" actionListener="#{PaqController.leerPaqSelct(p)}">
+                                             title="View" actionListener="#{PaqController.leer(p)}">
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
                     
-                    <!--Boton para un nuevo rol -->
+                    <!--Boton para un nuevo paquete -->
                     <p:commandButton icon="ui-icon-check" value="Nuevo Paquete" title="View"  
                                                   oncomplete="PF('wNuevoPaquete').show();" update=":NuevoPaquete"/>
 
@@ -71,21 +71,25 @@
                             
                             <p:outputLabel for="txtprecio" value="Precio"/>
                             <p:inputText id="txtprecio" required="true" value="#{PaqController.paquete1.precio}" />
-                                   <p:outputLabel for="txtalojamiento" value="Alojamiento"/>
-                            <p:selectOneMenu id="txtalojamiento" value="#{PaqController.paquete1.alojamiento}">
-                                <f:selectItems value="#{AloController.alojamiento}" var="a" itemLabel="#{a.nombre}"/>
+                            
+                           <p:outputLabel for="txtalojamiento" value="Alojamiento"/>
+                            <p:selectOneMenu id="txtalojamiento" value="#{PaqController.alojId}"  >
+                                <f:selectItems value="#{AloController.alojamiento}" var="a" itemLabel="#{a.nombre}" itemValue="#{a.id}"/>
+                                <p:ajax event="change" update="@this" listener="#{PaqController.cargarAlojamiento()}"/>
                             </p:selectOneMenu>
-                         
                             
                             <p:outputLabel for="txtpasaje" value="Pasaje"/>
-                            <p:selectOneMenu id="txtpasaje" value="#{PaqController.paquete1.pasaje}">
-                                <f:selectItems value="#{PasController.pasaje}" var="p" itemLabel="#{p.origen},#{p.destino}"/>
+                            <p:selectOneMenu id="txtpasaje" value="#{PaqController.pasId}">
+                                <f:selectItems value="#{PasController.pasaje}" var="p" itemLabel="#{p.origen},#{p.destino}" itemValue="#{p.id}"/>
+                                <p:ajax event="change" update="@this" listener="#{PaqController.cargarPasaje()}"/>
                             </p:selectOneMenu>
                             
                             <p:outputLabel for="txtentretenimiento" value="Entretenimiento"/>
-                            <p:selectOneMenu id="txtentretenimiento" value="#{PaqController.paquete1.entretenimiento}">
-                                <f:selectItems value="#{EntController.entretenimiento}" var="e" itemLabel="#{e.nombre}"/>
+                            <p:selectOneMenu id="txtentretenimiento" value="#{PaqController.entId}">
+                                <f:selectItems value="#{EntController.entretenimiento}" var="e" itemLabel="#{e.nombre}" itemValue="#{e.id}"/>
+                                <p:ajax event="change" update="@this" listener="#{PaqController.cargarEntretenimiento()}" />
                             </p:selectOneMenu>
+                                   
                             
                              
                         </p:panelGrid>
@@ -118,22 +122,24 @@
                             
                             <p:outputLabel for="txtprecio" value="Precio"/>
                             <p:inputText id="txtprecio" required="true" value="#{PaqController.paquete1.precio}" />
-                            
+
                             <p:outputLabel for="txtalojamiento" value="Alojamiento"/>
-                            <p:selectOneMenu id="txtalojamiento" value="#{PaqController.paquete1.alojamiento}">
-                                <f:selectItems value="#{AloController.alojamiento}" var="a" itemLabel="#{a.nombre}"/>
+                            <p:selectOneMenu id="txtalojamiento" value="#{PaqController.alojId}"  >
+                                <f:selectItems value="#{AloController.alojamiento}" var="a" itemLabel="#{a.nombre}" itemValue="#{a.id}"/>
+                                <p:ajax event="change" update="@this" listener="#{PaqController.cargarAlojamiento()}"/>
                             </p:selectOneMenu>
                             
                             <p:outputLabel for="txtpasaje" value="Pasaje"/>
-                            <p:selectOneMenu id="txtpasaje" value="#{PaqController.paquete1.pasaje}">
-                                <f:selectItems value="#{PasController.pasaje}" var="p" itemLabel="#{p.origen},#{p.destino}"/>
+                            <p:selectOneMenu id="txtpasaje" value="#{PaqController.pasId}">
+                                <f:selectItems value="#{PasController.pasaje}" var="p" itemLabel="#{p.origen},#{p.destino}" itemValue="#{p.id}"/>
+                                <p:ajax event="change" update="@this" listener="#{PaqController.cargarPasaje()}"/>
                             </p:selectOneMenu>
                             
                             <p:outputLabel for="txtentretenimiento" value="Entretenimiento"/>
-                            <p:selectOneMenu id="txtentretenimiento" value="#{PaqController.paquete1.entretenimiento}">
-                                <f:selectItems value="#{EntController.entretenimiento}" var="e" itemLabel="#{e.nombre}"/>
+                            <p:selectOneMenu id="txtentretenimiento" value="#{PaqController.entId}">
+                                <f:selectItems value="#{EntController.entretenimiento}" var="e" itemLabel="#{e.nombre}" itemValue="#{e.id}"/>
+                                <p:ajax event="change" update="@this" listener="#{PaqController.cargarEntretenimiento()}" />
                             </p:selectOneMenu>
-
                             
                         </p:panelGrid>
                         

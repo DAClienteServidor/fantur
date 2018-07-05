@@ -64,5 +64,9 @@ public class RolesController {
     public  void leer(Rol rolSelect){
         rol1 = rolSelect;
     }
+    
+    public void actualizar(){
+        rol = ejbRol.findAll();
+    }
 
 }
