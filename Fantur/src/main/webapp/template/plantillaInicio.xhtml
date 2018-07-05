@@ -50,13 +50,10 @@
                     </h:panelGrid>                           
                 </h:form>
             </p:dialog>
-            
             <p:dialog id="dialogo2" widgetVar="wdialogo2" header="Crear una nueva cuenta" modal="true" resizable="false" closeOnEscape="true" draggable="false"
-                      style="max-height:100%;overflow-y: scroll;">
+                      style="max-height:85%;overflow-y: scroll;">
                 <h:form>
-                    <p:messages id="mensaje" autoUpdate="false"/>
-                        <h:outputText value="INFORMACION PERSONAL"/>
-                        <br/>
+                    <p:fieldset legend="Datos personales" style="border-color: #045491">
                         <h:panelGrid columns="3" cellpadding="10" id="pgDatos">
                             <p:outputLabel for="txtNyP" value="Nombre y Apellido"/>
                             <p:inputText id="txtNyP" required="true" value="#{registrar.usuario.nombre}" />
@@ -80,9 +77,9 @@
 
 
                         </h:panelGrid>
-                
-                    <h:outputText value="INFORMACION DEL USUARIO"/>
-                    <br/>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Datos de Usuario" style="border-color: #045491" id="pgUsuario">
                         <h:panelGrid columns="3" cellpadding="10">
 
                             <p:outputLabel for="txtUsu" value="Usuario"/>
@@ -98,10 +95,9 @@
 
                             <p:outputLabel   value="Repetir Contraseña"/>
                             <p:password id="Clave2"/>
-                            <p:message for="Clave2"/>
 
                         </h:panelGrid>    
-                   
+                    </p:fieldset> 
                     <p:commandButton icon="ui-icon-check" value="Registrar" update="pgDatos,pgUsuario" action="#{registrar.registrar()}" ajax="false"/>
                     <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo2').hide();"/> 
                 </h:form>
