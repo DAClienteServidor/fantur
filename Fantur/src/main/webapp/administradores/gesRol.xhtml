@@ -28,52 +28,30 @@
                             <h:outputText value="#{p.rol}" />
                         </p:column>
                         <p:column style="width:32px;text-align: center">
-                          <p:commandButton icon="ui-icon-trash" title="View" actionListener="#{RolController.leer(p)}" 
-                                                  oncomplete="PF('wEliminar').show();" update=":Eliminar"/>
+                          <p:commandButton icon="ui-icon-pencil" title="View" actionListener="#{RolController.leer(p)}" 
+                                                  oncomplete="PF('wEditRol').show();" update=":EditRol"/>
                         </p:column>
                     </p:dataTable>
-                    <br/>
-                    <!--Boton para un nuevo rol -->
-                    <p:commandButton icon="ui-icon-check" value="Nuevo Rol" title="View"  
-                                                  oncomplete="PF('wNuevoRol').show();" update=":NuevoRol"/>
-
-                    
+   
                 </h:form>
                 
                 
-                <!--Dialogo para Eliminar -->
-                 <p:dialog id="Eliminar" widgetVar="wEliminar" header="Eliminar" modal="true" 
-                     resizable="false" closeOnEscape="true" draggable="false">
-                    <h:form>
-                     
-                      <p:outputLabel  value="Seguro que desea eliminar?"/>
-                      <!-- botones de aceptar y cancelar-->
-                      <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{RolController.eliminar()}" 
-                                         update=":form:basicDT" oncomplete="PF('wEliminar').hide();"/>                        
-                      <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wEliminar').hide();"/>
-                           
-                    </h:form>
-                 </p:dialog>  
+               
                 
-                <!--Dialogo para un nuevo rol -->
-                 <p:dialog id="NuevoRol" widgetVar="wNuevoRol" header="Nuevo Rol" modal="true" 
+                <!--Dialogo para editar un rol -->
+                 <p:dialog id="EditRol" widgetVar="wEditRol" header="Editar Rol" modal="true" 
                            resizable="false" closeOnEscape="true" draggable="false">
                      <h:form>
-                         <p:outputLabel value="Usuario: " />
-                         <p:selectOneMenu filter="true" filterMatchMode="contains" value="#{RolController.rol1.usuarioDni}" >
-                             <f:selectItems value="#{RolController.rol}" var="p" itemLabel="#{p.usuario.nombre},(#{p.rol})" itemValue="#{p.usuarioDni}" />
-                         </p:selectOneMenu>
-                         <br/>
-                         <br/>
+                         
                          <p:outputLabel value="Rol: " />
-                         <p:selectOneRadio value="#{RolController.rol1.usuario}">
+                         <p:selectOneMenu value="#{RolController.rol1.rol}">
                              <f:selectItem itemLabel="Usuario" itemValue="Usuario" />
                              <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
-                         </p:selectOneRadio>
+                         </p:selectOneMenu>
                          <br/>
-                         <p:commandButton value="Crear" icon="ui-icon-check" actionListener="#{RolController.registrarNRol()}" 
-                                         update=":form:msgs" oncomplete="PF('wNuevoRol').hide();"/> 
-                         <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wNuevoRol').hide();"/>   
+                         <p:commandButton value="Modificar" icon="ui-icon-check" actionListener="#{RolController.EditarRol()}" 
+                                         update=":form:basicDT" oncomplete="PF('wEditRol').hide();"/> 
+                         <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wEditRol').hide();"/>   
                      </h:form>          
                  </p:dialog>
                 
