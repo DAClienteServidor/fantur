@@ -30,8 +30,8 @@
                     <p:menuitem value="Mis Paquetes" url="./misPaquetes.xhtml"/>
 
                     <p:menuitem value="  Contactanos"/>
-                    <f:facet name="options">
-                        <p:outputLabel style="margin-right:10px" value="#{loginControl.nombreUsuario()}"/>
+                    <f:facet name="options" >
+                        <p:outputLabel style="margin-right:10px;" value="#{loginControl.nombreUsuario()}"/>
                         <p:commandButton value="Cerrar Sesion" actionListener="#{loginControl.cerrarSesion()}" action="/index.xhtml?faces-redirect=true" ajax="false"/>
                     </f:facet>
                 </p:menubar>

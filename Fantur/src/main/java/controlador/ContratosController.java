@@ -58,7 +58,7 @@ public class ContratosController {
         email.setTitulo("Compra de paquete");
         email.send();
         contrata = ejbCon.findByUsu(us.getDni());
-        return "./misPaquetes.xhtml";
+        return "./misPaquetes.xhtml?faces-redirect=true";
     }
 
     public List<Contrata> getContrata() {

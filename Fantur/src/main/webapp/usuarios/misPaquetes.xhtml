@@ -11,6 +11,7 @@
         <ui:composition template="./../template/usuarios.xhtml">
 
             <ui:define name="body">
+                <h1 align="center" style="font-family: monospace; color:#1B2631;">Paquetes contratados</h1>
                 <ui:repeat var="p" value="#{ConController.contrata}">
                     <h:form>
                         <p:panel id="basic" header="Paquete #{p.paquete1.nombre}: #{p.paquete1.precio}$" style="margin-bottom:20px">
