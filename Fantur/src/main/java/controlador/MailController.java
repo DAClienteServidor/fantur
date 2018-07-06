@@ -101,7 +101,7 @@ public class MailController {
                     transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
                      
                 }
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se Envio correctamente"));
+               
             } else {
                 Message mailMessage = new MimeMessage(mailSession);
                 mailMessage.setFrom(new InternetAddress(emisor));
@@ -112,7 +112,7 @@ public class MailController {
                 Transport transport = mailSession.getTransport("smtp");
                 transport.connect("smtp.gmail.com", emisor, clave);
                 transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se Envio correctamente"));
+                
             }
         } catch (Exception e) {
         }

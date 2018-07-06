@@ -14,7 +14,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import modelo.Alojamiento;
@@ -174,7 +173,7 @@ public class PaquetesController implements Serializable {
     }
     
     public void nuevoPaquete() {  
-            paquete1.setPasaje(pas);
+      paquete1.setPasaje(pas);
             paquete1.setAlojamiento(aloj);
             paquete1.setEntretenimiento(ent);
             ejbPaquete.create(paquete1);
@@ -192,7 +191,7 @@ public class PaquetesController implements Serializable {
             Entretenimiento entre = ejbEntretenimiento.find(Integer.parseInt(entId));
             this.ent = entre;
         } catch (Exception e) {
-            System.out.print("Me tiene podrido esta poronga en entretenimiento");
+            System.out.print("");
         }
     }
     
@@ -202,7 +201,7 @@ public class PaquetesController implements Serializable {
             this.pas = ejbPasaje.find(Integer.parseInt(pasId));
             
         } catch (Exception e) {
-            System.out.print("Me tiene podrido esta poronga en pasaje");
+            System.out.print("");
         }
     }
     
@@ -211,7 +210,7 @@ public class PaquetesController implements Serializable {
         try {
             this.aloj = ejbAlojamiento.find(Integer.parseInt(alojId));
         } catch (Exception e) {
-            System.out.print("Me tiene podrido esta poronga en Alojamiento");
+            System.out.print("");
         }
     }
     

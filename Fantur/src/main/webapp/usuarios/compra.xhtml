@@ -11,8 +11,8 @@
                 <h:form>
                     <p:panelGrid columns="1" style="margin: auto;">
 
-                        <p:outputLabel value="Paquete: #{PaqController.paq.nombre}"/>
-                        <p:outputLabel value="Precio: #{PaqController.paq.precio}"/>
+                        <p:outputLabel value="Paquete: #{PaqController.paquete1.nombre}"/>
+                        <p:outputLabel value="Precio: #{PaqController.paquete1.precio}"/>
 
                         <h:outputText value="Numero de tarjeta de credito" />
                         <p:inputText/>
@@ -21,7 +21,7 @@
                         <h:outputText value="Fecha de vencimiento" />
                         <p:inputText/>
                         <br/>
-                        <p:commandButton style="margin-left:50px;" value="Comprar" icon="ui-icon-check" action="#{ConController.cargar(PaqController.paq)}" ajax="false"/>
+                        <p:commandButton style="margin-left:50px;" value="Comprar" icon="ui-icon-check" action="#{ConController.cargar(PaqController.paquete1)}" ajax="false"/>
 
                     </p:panelGrid>
 
