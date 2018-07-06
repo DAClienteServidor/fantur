@@ -66,6 +66,7 @@ public class EntretenimientosController {
     public void resgistrarNuevoEntretenimiento(){
         try {
             ejbEnt.create(ent);
+            entretenimiento = ejbEnt.findAll();
         } catch (Exception e) {
         } 
     }
@@ -83,7 +84,8 @@ public class EntretenimientosController {
     
         public void EliminarEntretenimiento(){
             try {
-                ejbEnt.remove(ent);    
+                ejbEnt.remove(ent);  
+                entretenimiento = ejbEnt.findAll();
             } catch (Exception e) {
             }
         }

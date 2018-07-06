@@ -30,13 +30,13 @@
                         <p:column headerText="Precio">
                             <h:outputText value="#{p.precio}" />
                         </p:column>
-                        <p:column headerText="Id Alojamiento">
+                        <p:column headerText="Alojamiento">
                             <h:outputText value="#{p.alojamiento.nombre}" />
                         </p:column>
-                        <p:column headerText="Id Pasaje">
+                        <p:column headerText="Pasaje">
                             <h:outputText value="#{p.pasaje.id}" />
                         </p:column>
-                        <p:column headerText="Id Entretenimiento">
+                        <p:column headerText="Entretenimiento">
                             <h:outputText value="#{p.entretenimiento.nombre}"/>
                         </p:column>
                         <p:column style="width:32px;text-align: center">
@@ -114,7 +114,7 @@
                     <h:form>
                         <p:panelGrid columns="2">
                             
-                            <p:outputLabel for="txtcod" value="Codigo"/>
+                            <p:outputLabel for="txtcod" value="Id"/>
                             <p:inputText id="txtcod" required="true" value="#{PaqController.paquete1.idpaquete}" />
 
                             <p:outputLabel for="txtnombre" value="Nombre"/>
