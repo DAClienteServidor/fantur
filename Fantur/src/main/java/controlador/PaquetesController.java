@@ -14,12 +14,15 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import modelo.Alojamiento;
 import modelo.Entretenimiento;
 import modelo.Paquete;
 import modelo.Pasaje;
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
 @ManagedBean(name = "PaqController")
 @SessionScoped
@@ -159,14 +162,15 @@ public class PaquetesController implements Serializable {
         paquete1.setAlojamiento(aloj);
         paquete1.setEntretenimiento(ent);
         ejbPaquete.edit(paquete1);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se Modifico correctamente"));    
+       
     } 
     
     public void EliminarPaquete(){
-            try {
             ejbPaquete.remove(paquete1);
             paquete = ejbPaquete.findAll();
-        } catch (Exception e) {
-        }
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se Elimino correctamente"));
+     
     }
     
     public void nuevoPaquete() {  
@@ -174,7 +178,10 @@ public class PaquetesController implements Serializable {
             paquete1.setAlojamiento(aloj);
             paquete1.setEntretenimiento(ent);
             ejbPaquete.create(paquete1);
-             paquete = ejbPaquete.findAll();
+            paquete = ejbPaquete.findAll();
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se creo correctamente"));
+            
+        
     }
     
     //-------------------------------------------------------

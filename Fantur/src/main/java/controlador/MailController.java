@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -97,7 +99,9 @@ public class MailController {
                     Transport transport = mailSession.getTransport("smtp");
                     transport.connect("smtp.gmail.com", emisor, clave);
                     transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
+                     
                 }
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se Envio correctamente"));
             } else {
                 Message mailMessage = new MimeMessage(mailSession);
                 mailMessage.setFrom(new InternetAddress(emisor));
@@ -108,6 +112,7 @@ public class MailController {
                 Transport transport = mailSession.getTransport("smtp");
                 transport.connect("smtp.gmail.com", emisor, clave);
                 transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se Envio correctamente"));
             }
         } catch (Exception e) {
         }

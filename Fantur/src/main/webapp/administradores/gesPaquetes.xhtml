@@ -74,18 +74,21 @@
                             
                            <p:outputLabel for="txtalojamiento" value="Alojamiento"/>
                             <p:selectOneMenu id="txtalojamiento" value="#{PaqController.alojId}"  >
+                                <f:selectItem itemLabel="Sin Alojamiento" itemValue="#{null}" />
                                 <f:selectItems value="#{AloController.alojamiento}" var="a" itemLabel="#{a.nombre}" itemValue="#{a.id}"/>
                                 <p:ajax event="change" update="@this" listener="#{PaqController.cargarAlojamiento()}"/>
                             </p:selectOneMenu>
                             
                             <p:outputLabel for="txtpasaje" value="Pasaje"/>
                             <p:selectOneMenu id="txtpasaje" value="#{PaqController.pasId}">
+                                <f:selectItem itemLabel="Sin Pasaje" itemValue="#{null}" />
                                 <f:selectItems value="#{PasController.pasaje}" var="p" itemLabel="#{p.origen},#{p.destino}" itemValue="#{p.id}"/>
                                 <p:ajax event="change" update="@this" listener="#{PaqController.cargarPasaje()}"/>
                             </p:selectOneMenu>
                             
                             <p:outputLabel for="txtentretenimiento" value="Entretenimiento"/>
                             <p:selectOneMenu id="txtentretenimiento" value="#{PaqController.entId}">
+                                <f:selectItem itemLabel="Sin Entretenimiento" itemValue="#{null}" />
                                 <f:selectItems value="#{EntController.entretenimiento}" var="e" itemLabel="#{e.nombre}" itemValue="#{e.id}"/>
                                 <p:ajax event="change" update="@this" listener="#{PaqController.cargarEntretenimiento()}" />
                             </p:selectOneMenu>
@@ -125,18 +128,21 @@
 
                             <p:outputLabel for="txtalojamiento" value="Alojamiento"/>
                             <p:selectOneMenu id="txtalojamiento" value="#{PaqController.alojId}"  >
+                                <f:selectItem itemLabel="Sin Alojamiento" itemValue="#{null}" />
                                 <f:selectItems value="#{AloController.alojamiento}" var="a" itemLabel="#{a.nombre}" itemValue="#{a.id}"/>
                                 <p:ajax event="change" update="@this" listener="#{PaqController.cargarAlojamiento()}"/>
                             </p:selectOneMenu>
                             
                             <p:outputLabel for="txtpasaje" value="Pasaje"/>
                             <p:selectOneMenu id="txtpasaje" value="#{PaqController.pasId}">
+                                <f:selectItem itemLabel="Sin Pasaje" itemValue="#{null}" />
                                 <f:selectItems value="#{PasController.pasaje}" var="p" itemLabel="#{p.origen},#{p.destino}" itemValue="#{p.id}"/>
                                 <p:ajax event="change" update="@this" listener="#{PaqController.cargarPasaje()}"/>
                             </p:selectOneMenu>
                             
                             <p:outputLabel for="txtentretenimiento" value="Entretenimiento"/>
                             <p:selectOneMenu id="txtentretenimiento" value="#{PaqController.entId}">
+                                <f:selectItem itemLabel="Sin Entretenimiento" itemValue="#{null}" />
                                 <f:selectItems value="#{EntController.entretenimiento}" var="e" itemLabel="#{e.nombre}" itemValue="#{e.id}"/>
                                 <p:ajax event="change" update="@this" listener="#{PaqController.cargarEntretenimiento()}" />
                             </p:selectOneMenu>

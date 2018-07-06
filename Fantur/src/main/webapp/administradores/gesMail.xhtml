@@ -21,15 +21,15 @@
                             </p:selectOneRadio>
 
                             <p:outputLabel for="to" value="Para"/>
-                            <p:inputText id="to" required="true" value="#{mailControl.destinatarios}" disabled="#{mailControl.check == 'Si'}"/>
+                            <p:inputText id="to" widgetVar="wto" required="true" value="#{mailControl.destinatarios}" disabled="#{mailControl.check == 'Si'}"/>
 
                             <p:outputLabel for="tit" value="Titulo"/>
-                            <p:inputText id="tit" required="true" value="#{mailControl.titulo}" />
+                            <p:inputText id="tit"  widgetVar="wtit" required="true" value="#{mailControl.titulo}" />
                         </p:panelGrid>  
                         <br/>
                         <p:editor id="editor" widgetVar="editorWidget" value="#{mailControl.mensaje}" width="600" />
                         <br/>
-                        <p:commandButton value="Enviar" action="#{mailControl.send()}" ajax="true"/>        
+                        <p:commandButton value="Enviar" action="#{mailControl.send()}" ajax="true" onclick="PF('editorWidget').clear(); PF('wtit').clear(); PF('wto').clear();"/>        
                     </h:form>  
                 </div>
             </ui:define>
