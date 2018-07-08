@@ -28,6 +28,8 @@ public class RegistroController implements Serializable{
     private UsuarioInterface UsuarioEJB;
     @EJB
     private RolInterface RolEJB;
+    @EJB
+    private Email email;
     
     
         private Usuario usuario; 
@@ -63,13 +65,11 @@ public class RegistroController implements Serializable{
           rol.setRol("Usuario");
           rol.setUsuario(usuario);
           rol.setUsuarioDni(usuario.getDni());
-          RolEJB.create(rol);
-          MailController email = new MailController();
-          email.setDestinatarios(usuario.getEmail());
-          email.setCheck("No");
-          email.setMensaje("Su cuenta: "+ usuario.getUsuario() + " con clave:" + usuario.getContrasena()+" ha sido creada");
-          email.setTitulo("Registro Exitoso");
-          email.send();
+          RolEJB.create(rol);     
+          String mensaje = "Su cuenta: "+ usuario.getUsuario() + " con clave:" + usuario.getContrasena()+" ha sido creada";
+          
+          email.send("No", mensaje, "Registro exitoso", usuario.getEmail());
+          
           context.getExternalContext().getSessionMap().put("usuario", usuario);
           return "/usuarios/index?faces-redirect=true";
         } catch (Exception e) {

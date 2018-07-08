@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import modelo.Paquete;
+import modelo.Paquete_;
 
 /**
  *
@@ -44,7 +45,7 @@ public class PaqueteDAO extends DAO<Paquete> implements PaqueteInterface {
 
             Root<Paquete> e = cq.from(Paquete.class);
             
-            cq.where(cb.and(cb.equal(e.get("idpaquete"), id)));
+            cq.where(cb.and(cb.equal(e.get(Paquete_.idpaquete), id)));
 
             Query query = em.createQuery(cq);
             

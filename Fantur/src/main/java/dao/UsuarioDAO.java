@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import modelo.Usuario;
+import modelo.Usuario_;
 
 /**
  *
@@ -34,6 +35,7 @@ public class UsuarioDAO extends DAO<Usuario> implements UsuarioInterface {
         super(Usuario.class);
     }
     
+    @Override
     public Usuario iniciarSesion(String usu, String pas) throws Exception {
         Usuario usuario = null;
         try {
@@ -43,7 +45,7 @@ public class UsuarioDAO extends DAO<Usuario> implements UsuarioInterface {
             Root<Usuario> e = cq.from(Usuario.class);
             
             
-            cq.where(cb.and((cb.equal(e.get("usuario"), usu)), (cb.equal(e.get("contrasena"), pas))));
+            cq.where(cb.and((cb.equal(e.get(Usuario_.usuario) , usu)), (cb.equal(e.get(Usuario_.contrasena), pas))));
 
             Query query = em.createQuery(cq);
             
@@ -66,7 +68,7 @@ public class UsuarioDAO extends DAO<Usuario> implements UsuarioInterface {
 
             Root<Usuario> e = cq.from(Usuario.class);
             
-            cq.where(cb.equal(e.get("usuario"), username));
+            cq.where(cb.equal(e.get(Usuario_.usuario), username));
 
             Query query = em.createQuery(cq);
             
