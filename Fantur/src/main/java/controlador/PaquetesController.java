@@ -44,9 +44,11 @@ public class PaquetesController implements Serializable {
     private Pasaje pas;
     private Alojamiento aloj;
     
-    private String entId;
-    private String alojId;
-    private String pasId;
+    private String consulta;
+   
+   private List<Alojamiento> alojamientos;
+   private List<Entretenimiento> entretenimientos;
+   private List<Pasaje> pasajes;
     
     @EJB
     private EntretenimientoInterface ejbEntretenimiento;
@@ -61,9 +63,9 @@ public class PaquetesController implements Serializable {
         paquete = ejbPaquete.findAll();
         //this.paq = null;
         paquete1 = new Paquete();
-
-
-
+        alojamientos = ejbAlojamiento.findAll();
+        entretenimientos = ejbEntretenimiento.findAll();
+        pasajes = ejbPasaje.findAll();
     }
     
 
@@ -124,45 +126,74 @@ public class PaquetesController implements Serializable {
     
      //------------------------------------------------------
 
-    public String getEntId() {
-        return entId;
+    public List<Alojamiento> getAlojamientos() {
+        return alojamientos;
     }
 
-    public void setEntId(String entId) {
-        this.entId = entId;
+    public void setAlojamientos(List<Alojamiento> alojamientos) {
+        this.alojamientos = alojamientos;
     }
 
-    public String getAlojId() {
-        return alojId;
+    public List<Entretenimiento> getEntretenimientos() {
+        return entretenimientos;
     }
 
-    public void setAlojId(String alojId) {
-        this.alojId = alojId;
+    public void setEntretenimientos(List<Entretenimiento> entretenimientos) {
+        this.entretenimientos = entretenimientos;
     }
 
-    public String getPasId() {
-        return pasId;
+    public List<Pasaje> getPasajes() {
+        return pasajes;
     }
 
-    public void setPasId(String pasId) {
-        this.pasId = pasId;
+    public void setPasajes(List<Pasaje> pasajes) {
+        this.pasajes = pasajes;
     }
-
-
     
+    //String de consulta
+
+    public String getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(String consulta) {
+        this.consulta = "%"+consulta+"%";
+    }
     
+    //Leer de cada objeto
+    public void leerEnt(Entretenimiento ent){
+        this.paquete1.setEntretenimiento(ent);
+    }   
     
+    public void leerPas(Pasaje pas){
+        this.paquete1.setPasaje(pas);
+    } 
+    
+    public void leerAlo(Alojamiento aloj){
+        this.paquete1.setAlojamiento(aloj);
+    } 
+    
+    //Actualizar tablas
+    public void actualizarAlojamientos(){
+        this.alojamientos = ejbAlojamiento.findByAlgo(consulta);
+    }
+    
+    public void actualizarPasajes(){
+        this.pasajes = ejbPasaje.findByAlgo(consulta);
+    }
+    
+    public void actualizarEntretenimientos(){
+        this.entretenimientos = ejbEntretenimiento.findByAlgo(consulta);
+    }
+   
      public  void leerPaqSelct(Paquete paqueteSelec){
         paquete1 = paqueteSelec;
     }
     
     public void modificarPaquete(){
-        paquete1.setPasaje(pas);
-        paquete1.setAlojamiento(aloj);
-        paquete1.setEntretenimiento(ent);
         ejbPaquete.edit(paquete1);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se Modifico correctamente"));    
-       
+        
     } 
     
     public void EliminarPaquete(){
@@ -173,52 +204,10 @@ public class PaquetesController implements Serializable {
     }
     
     public void nuevoPaquete() {  
-      paquete1.setPasaje(pas);
-            paquete1.setAlojamiento(aloj);
-            paquete1.setEntretenimiento(ent);
             ejbPaquete.create(paquete1);
             paquete = ejbPaquete.findAll();
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se creo correctamente"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se creo correctamente"));
             
         
     }
-    
-    //-------------------------------------------------------
-    
-    public void cargarEntretenimiento(){
-        ent = new Entretenimiento();
-        try {
-            Entretenimiento entre = ejbEntretenimiento.find(Integer.parseInt(entId));
-            this.ent = entre;
-        } catch (Exception e) {
-            System.out.print("");
-        }
-    }
-    
-    public void cargarPasaje(){
-        pas = new Pasaje();
-        try { 
-            this.pas = ejbPasaje.find(Integer.parseInt(pasId));
-            
-        } catch (Exception e) {
-            System.out.print("");
-        }
-    }
-    
-    public void cargarAlojamiento(){
-        aloj = new Alojamiento();
-        try {
-            this.aloj = ejbAlojamiento.find(Integer.parseInt(alojId));
-        } catch (Exception e) {
-            System.out.print("");
-        }
-    }
-    
-    
-
-
-
-    
-    
-    
 }

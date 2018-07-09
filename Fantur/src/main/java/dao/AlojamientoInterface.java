@@ -25,6 +25,8 @@ public interface AlojamientoInterface {
     Alojamiento find(Object id);
 
     List<Alojamiento> findAll();
+    
+    List<Alojamiento> findByAlgo(String consulta);
 
     List<Alojamiento> findRange(int[] range);
 

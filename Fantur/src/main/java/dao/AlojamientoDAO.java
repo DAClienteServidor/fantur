@@ -5,15 +5,17 @@
  */
 package dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import modelo.Alojamiento;
+import modelo.Alojamiento_;
 
-/**
- *
- * @author usuario
- */
 @Stateless
 public class AlojamientoDAO extends DAO<Alojamiento> implements AlojamientoInterface {
 
@@ -27,6 +29,27 @@ public class AlojamientoDAO extends DAO<Alojamiento> implements AlojamientoInter
 
     public AlojamientoDAO() {
         super(Alojamiento.class);
+    }
+    
+    @Override
+    public List<Alojamiento> findByAlgo(String consulta){
+
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Alojamiento> cq = cb.createQuery(Alojamiento.class);
+
+            Root<Alojamiento> e = cq.from(Alojamiento.class);
+            
+            cq.where(cb.or(cb.like(e.get(Alojamiento_.nombre), consulta),
+                           cb.like(e.get(Alojamiento_.tipo), consulta)));
+
+            Query query = em.createQuery(cq);
+            
+            return query.getResultList();
+         
+        } catch (Exception e) {
+            throw e;
+        }
     }
     
 }

@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import modelo.Rol;
 import modelo.Usuario;
@@ -21,7 +22,7 @@ import modelo.Usuario;
  * @author maria
  */
 @ManagedBean(name = "registrar")
-@SessionScoped
+@ViewScoped
 public class RegistroController implements Serializable{
     
     @EJB

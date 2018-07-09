@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import modelo.Entretenimiento;
 
 /**
@@ -18,7 +19,7 @@ import modelo.Entretenimiento;
  * @author usuario
  */
 @ManagedBean(name = "EntController")
-@SessionScoped
+@ViewScoped
 public class EntretenimientosController {
     
     @EJB

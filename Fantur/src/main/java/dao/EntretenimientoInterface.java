@@ -25,6 +25,8 @@ public interface EntretenimientoInterface {
     Entretenimiento find(Object id);
 
     List<Entretenimiento> findAll();
+    
+    List<Entretenimiento> findByAlgo(String consulta);
 
     List<Entretenimiento> findRange(int[] range);
 

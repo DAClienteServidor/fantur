@@ -25,6 +25,8 @@ public interface PasajeInterface {
     Pasaje find(Object id);
 
     List<Pasaje> findAll();
+    
+    List<Pasaje> findByAlgo(String consulta);
 
     List<Pasaje> findRange(int[] range);
 

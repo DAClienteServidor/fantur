@@ -5,10 +5,16 @@
  */
 package dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import modelo.Pasaje;
+import modelo.Pasaje_;
 
 /**
  *
@@ -29,4 +35,24 @@ public class PasajeDAO extends DAO<Pasaje> implements PasajeInterface {
         super(Pasaje.class);
     }
     
+    @Override
+    public List<Pasaje> findByAlgo(String consulta){
+
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Pasaje> cq = cb.createQuery(Pasaje.class);
+
+            Root<Pasaje> e = cq.from(Pasaje.class);
+            
+            cq.where(cb.or(cb.like(e.get(Pasaje_.destino), consulta),
+                           cb.like(e.get(Pasaje_.origen), consulta)));
+
+            Query query = em.createQuery(cq);
+            
+            return query.getResultList();
+         
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

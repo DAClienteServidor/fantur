@@ -5,10 +5,16 @@
  */
 package dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import modelo.Entretenimiento;
+import modelo.Entretenimiento_;
 
 /**
  *
@@ -29,4 +35,24 @@ public class EntretenimientoDAO extends DAO<Entretenimiento> implements Entreten
         super(Entretenimiento.class);
     }
     
+    @Override
+    public List<Entretenimiento> findByAlgo(String consulta){
+
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Entretenimiento> cq = cb.createQuery(Entretenimiento.class);
+
+            Root<Entretenimiento> e = cq.from(Entretenimiento.class);
+            
+            cq.where(cb.or(cb.like(e.get(Entretenimiento_.nombre), consulta),
+                           cb.like(e.get(Entretenimiento_.lugar), consulta)));
+
+            Query query = em.createQuery(cq);
+            
+            return query.getResultList();
+         
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

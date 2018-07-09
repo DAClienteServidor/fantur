@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import modelo.Pasaje;
 
 /**
@@ -18,7 +19,7 @@ import modelo.Pasaje;
  *
  */
 @ManagedBean(name = "PasController")
-@SessionScoped
+@ViewScoped
 public class PasajesController {
        
     @EJB

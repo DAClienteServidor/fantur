@@ -11,7 +11,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import modelo.Rol;
 import modelo.Usuario;
 
@@ -20,7 +20,7 @@ import modelo.Usuario;
  * @author usuario
  */
 @ManagedBean(name = "UsuController")
-@SessionScoped
+@ViewScoped
 public class UsuariosController {
 
       @EJB
@@ -33,7 +33,8 @@ public class UsuariosController {
     
         @EJB
     private RolInterface RolEJB;
-    private List<Rol> roles; 
+    private List<Rol> roles;
+   
     
     
         private Usuario usuario1; 
@@ -113,6 +114,7 @@ public class UsuariosController {
     public  void modificarAdmin(){
         try {
             ejbUsu.edit(usuario1);
+            usuario1=null; 
         } catch (Exception e) {
         }
         
