@@ -93,7 +93,10 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         return em;
     }
     
-     public Usuario iniciarSesion(String usu, String pas) throws Exception {
+    @GET
+    @Path("{usu}/{pas}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+     public Usuario iniciarSesion(@PathParam("usu") String usu,@PathParam("pas") String pas) throws Exception {
         Usuario usuario = null;
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();

@@ -119,7 +119,10 @@ public class ContrataFacadeREST extends AbstractFacade<Contrata> {
         return em;
     }
     
-     public List<Contrata> findByUsu(String dni){
+    @GET
+    @Path("{dni}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+     public List<Contrata> findByUsu(@PathParam("dni") String dni){
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Contrata> cq = cb.createQuery(Contrata.class);

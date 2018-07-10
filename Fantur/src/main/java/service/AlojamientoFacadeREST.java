@@ -93,7 +93,10 @@ public class AlojamientoFacadeREST extends AbstractFacade<Alojamiento> {
         return em;
     }
     
-     public List<Alojamiento> findByAlgo(String consulta){
+    @GET
+    @Path("{consulta}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+     public List<Alojamiento> findByAlgo(@PathParam("consulta") String consulta){
 
         try {
             CriteriaBuilder cb = em.getCriteriaBuilder();

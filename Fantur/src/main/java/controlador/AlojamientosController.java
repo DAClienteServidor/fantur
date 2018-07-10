@@ -10,10 +10,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import modelo.Alojamiento;
-import modelo.Pasaje;
 import service.AlojamientoFacadeREST;
 /**
  *
@@ -23,7 +21,7 @@ import service.AlojamientoFacadeREST;
 @ViewScoped
 public class AlojamientosController {
     @EJB
-    private AlojamientoFacadeREST AlojWS;
+    private AlojamientoInterface AlojWS;
     private List<Alojamiento> alojamiento;
     
     private Alojamiento aloj;
