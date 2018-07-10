@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import modelo.Pasaje;
+import service.PasajeFacadeREST;
 
 /**
  *
@@ -23,7 +24,7 @@ import modelo.Pasaje;
 public class PasajesController {
        
     @EJB
-    private PasajeInterface ejbPasaje;
+    private PasajeFacadeREST PasajeWS;
     private List<Pasaje> pasaje;
     
     private Pasaje pasaje1;
@@ -32,7 +33,7 @@ public class PasajesController {
     
     @PostConstruct
     public void init(){
-        pasaje = ejbPasaje.findAll();
+        pasaje = PasajeWS.findAll();
         pasaje1 = new Pasaje();
     }
     
@@ -59,8 +60,8 @@ public class PasajesController {
     
     public void resgistrarNuevoPasaje(){
         try {
-            ejbPasaje.create(pasaje1);
-            pasaje = ejbPasaje.findAll();
+            PasajeWS.create(pasaje1);
+            pasaje = PasajeWS.findAll();
         } catch (Exception e) {
         } 
     }
@@ -71,15 +72,15 @@ public class PasajesController {
 
         public  void ModificarPasaje() {
             try {
-                ejbPasaje.edit(pasaje1);
+                PasajeWS.edit(pasaje1);
             } catch (Exception e) {
             }
         }
     
         public void EliminarPasaje(){
             try {
-                ejbPasaje.remove(pasaje1);
-                pasaje = ejbPasaje.findAll();
+                PasajeWS.remove(pasaje1);
+                pasaje = PasajeWS.findAll();
             } catch (Exception e) {
             }
         }

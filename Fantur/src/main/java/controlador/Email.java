@@ -16,6 +16,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import modelo.Usuario;
+import service.UsuarioFacadeREST;
 
 
 /**
@@ -26,8 +27,7 @@ import modelo.Usuario;
 public class Email {
     
     @EJB
-    private UsuarioInterface ejbUsuario;
-    
+    private UsuarioFacadeREST UsuWS;
     List<Usuario> usuario;
 
     public void send(String check, String mensaje, String titulo, String destinatarios) {
@@ -49,7 +49,7 @@ public class Email {
             Usuario items;
 
             if (check.equals("Si")) {
-                usuario = ejbUsuario.findAll();
+                usuario = UsuWS.findAll();
                 for (int i = 0; i < usuario.size(); i++) {
                     
                     items = usuario.get(i);

@@ -75,19 +75,19 @@
                            <p:outputLabel for="txtalojamiento" value="Alojamiento"/>
                            <p:column>
                                <p:outputLabel id="txtalojamiento" value="#{PaqController.paquete1.alojamiento.nombre}"/>
-                               <p:commandButton value="Buscar Nuevo" onclick="PF('wBuscarAloj').show();"/> 
+                               <p:commandButton icon="ui-icon-search" onclick="PF('wBuscarAloj').show();"/> 
                            </p:column> 
                            
                             <p:outputLabel for="txtpasaje" value="Pasaje"/>
                             <p:column>
                                 <p:outputLabel id="txtpasaje" value="#{PaqController.paquete1.pasaje.origen}; #{PaqController.paquete1.pasaje.destino}"/>
-                               <p:commandButton value="Buscar Nuevo" onclick="PF('wBuscarPas').show();"/> 
+                               <p:commandButton icon="ui-icon-search" onclick="PF('wBuscarPas').show();"/> 
                             </p:column>  
                             
                             <p:outputLabel for="txtentretenimiento" value="Entretenimiento"/>
                             <p:column>
                                 <p:outputLabel id="txtentretenimiento" value="#{PaqController.paquete1.entretenimiento.nombre}"/>
-                               <p:commandButton value="Buscar Nuevo" onclick="PF('wBuscarEnt').show();"/> 
+                               <p:commandButton icon="ui-icon-search" onclick="PF('wBuscarEnt').show();"/> 
                             </p:column>                                    
                             
                              
@@ -125,20 +125,20 @@
                             <p:outputLabel for="txtalojamiento" value="Alojamiento"/>
                              <p:column>
                                <p:outputLabel id="txtalojamiento" value="#{PaqController.paquete1.alojamiento.nombre}"/>
-                               <p:commandButton value="Buscar Nuevo" onclick="PF('wBuscarAlojc').show();"/> 
+                               <p:commandButton icon="ui-icon-search" onclick="PF('wBuscarAlojc').show();"/> 
                            </p:column> 
                             
               
                             <p:outputLabel for="txtpasaje" value="Pasaje"/>
                            <p:column>
                                 <p:outputLabel id="txtpasaje" value="#{PaqController.paquete1.pasaje.origen}; #{PaqController.paquete1.pasaje.destino}"/>
-                               <p:commandButton value="Buscar Nuevo" onclick="PF('wBuscarPasc').show();"/> 
+                               <p:commandButton icon="ui-icon-search" onclick="PF('wBuscarPasc').show();"/> 
                             </p:column> 
                             
                             <p:outputLabel for="txtentretenimiento" value="Entretenimiento"/>
                              <p:column>
                                 <p:outputLabel id="txtentretenimiento" value="#{PaqController.paquete1.entretenimiento.nombre}"/>
-                                <p:commandButton value="Buscar Nuevo" onclick="PF('wBuscarEntc').show();"/> 
+                                <p:commandButton icon="ui-icon-search" onclick="PF('wBuscarEntc').show();"/> 
                             </p:column>
                             
                         </p:panelGrid>
@@ -177,7 +177,7 @@
                      <h:form>
                          <p:panelGrid columns="2">
                              <p:inputText value="#{PaqController.consulta}"/>
-                             <p:commandButton value="Buscar" actionListener="#{PaqController.actualizarAlojamientos()}" 
+                             <p:commandButton icon="ui-icon-search" actionListener="#{PaqController.actualizarAlojamientos()}" 
                                               onclick="PF('wBuscarAloj').show();" update=":formA:basicDTA"/>
                          </p:panelGrid>
                     </h:form>
@@ -225,7 +225,7 @@
                      <h:form>
                          <p:panelGrid columns="2">
                              <p:inputText value="#{PaqController.consulta}"/>
-                             <p:commandButton value="Buscar" actionListener="#{PaqController.actualizarEntretenimientos()}" 
+                             <p:commandButton icon="ui-icon-search" actionListener="#{PaqController.actualizarEntretenimientos()}" 
                                               onclick="PF('wBuscarEnt').show();" update=":formE:basicDTE"/>
                          </p:panelGrid>
                     </h:form>
@@ -271,7 +271,7 @@
                      <h:form>
                          <p:panelGrid columns="2">
                              <p:inputText value="#{PaqController.consulta}"/>
-                             <p:commandButton value="Buscar" actionListener="#{PaqController.actualizarPasajes()}" 
+                             <p:commandButton icon="ui-icon-search" actionListener="#{PaqController.actualizarPasajes()}" 
                                               onclick="PF('wBuscarPas').show();" update=":formP:basicDTP"/>
                          </p:panelGrid>
                     </h:form>
@@ -320,7 +320,7 @@
                      <h:form>
                          <p:panelGrid columns="2">
                              <p:inputText value="#{PaqController.consulta}"/>
-                             <p:commandButton value="Buscar" actionListener="#{PaqController.actualizarAlojamientos()}" 
+                             <p:commandButton icon="ui-icon-search" actionListener="#{PaqController.actualizarAlojamientos()}" 
                                               onclick="PF('wBuscarAlojc').show();" update=":formAc:basicDTAc"/>
                          </p:panelGrid>
                     </h:form>
@@ -368,7 +368,7 @@
                      <h:form>
                          <p:panelGrid columns="2">
                              <p:inputText value="#{PaqController.consulta}"/>
-                             <p:commandButton value="Buscar" actionListener="#{PaqController.actualizarEntretenimientos()}" 
+                             <p:commandButton icon="ui-icon-search" actionListener="#{PaqController.actualizarEntretenimientos()}" 
                                               onclick="PF('wBuscarEntc').show();" update=":formEc:basicDTEc"/>
                          </p:panelGrid>
                     </h:form>
@@ -414,7 +414,7 @@
                      <h:form>
                          <p:panelGrid columns="2">
                              <p:inputText value="#{PaqController.consulta}"/>
-                             <p:commandButton value="Buscar" actionListener="#{PaqController.actualizarPasajes()}" 
+                             <p:commandButton icon="ui-icon-search" actionListener="#{PaqController.actualizarPasajes()}" 
                                               onclick="PF('wBuscarPasc').show();" update=":formPc:basicDTPc"/>
                          </p:panelGrid>
                     </h:form>

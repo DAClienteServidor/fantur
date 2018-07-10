@@ -1,19 +1,19 @@
 package controlador;
 
-import dao.ContrataInterface;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import modelo.Contrata;
 import modelo.Paquete;
 import modelo.Usuario;
+import service.ContrataFacadeREST;
 import ws.validar;
 
 @Stateless
 public class Compra {
 
     @EJB
-    private ContrataInterface ejbCon;
+    private ContrataFacadeREST ContrataWS;
 
     @EJB
     private Email email;
@@ -32,7 +32,7 @@ public class Compra {
 
             contrato.getContrataPK().setUsuario(contrato.getUsuario1().getDni());
             contrato.getContrataPK().setPaquete(contrato.getPaquete1().getIdpaquete());
-            ejbCon.create(contrato);
+            ContrataWS.create(contrato);
 
             String mensaje = "Paquete " + paq.getNombre() + "comprado con exito";
 

@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import modelo.Rol;
+import service.RolFacadeREST;
 
 /**
  *
@@ -22,7 +23,7 @@ import modelo.Rol;
 @ViewScoped
 public class RolesController {
     @EJB
-    private RolInterface ejbRol;
+    private RolFacadeREST RolWS;
     private List<Rol> rol;
 
     
@@ -33,7 +34,7 @@ public class RolesController {
     
     @PostConstruct
     public void init(){
-        rol = ejbRol.findAll();
+        rol = RolWS.findAll();
         rol1 = new Rol();
     }
     
@@ -59,15 +60,12 @@ public class RolesController {
     
     //Metodos para los gestionar
     public void EditarRol(){
-        ejbRol.edit(rol1);
+        RolWS.edit(rol1);
     }
     
     public  void leer(Rol rolSelect){
         rol1 = rolSelect;
     }
     
-    public void actualizar(){
-        rol = ejbRol.findAll();
-    }
 
 }

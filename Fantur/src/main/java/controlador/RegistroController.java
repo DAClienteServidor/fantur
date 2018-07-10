@@ -5,17 +5,16 @@
  */
 package controlador;
 
-import dao.RolInterface;
-import dao.UsuarioInterface;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import modelo.Rol;
 import modelo.Usuario;
+import service.RolFacadeREST;
+import service.UsuarioFacadeREST;
 
 /**
  *
@@ -26,9 +25,9 @@ import modelo.Usuario;
 public class RegistroController implements Serializable{
     
     @EJB
-    private UsuarioInterface UsuarioEJB;
+    private UsuarioFacadeREST UsuWS;
     @EJB
-    private RolInterface RolEJB;
+    private RolFacadeREST RolWS;
     @EJB
     private Email email;
     
@@ -62,11 +61,11 @@ public class RegistroController implements Serializable{
     public String registrar() {
         try {
           FacesContext context = FacesContext.getCurrentInstance();
-          UsuarioEJB.create(usuario);
+          UsuWS.create(usuario);
           rol.setRol("Usuario");
           rol.setUsuario(usuario);
           rol.setUsuarioDni(usuario.getDni());
-          RolEJB.create(rol);     
+          RolWS.create(rol);     
           String mensaje = "Su cuenta: "+ usuario.getUsuario() + " con clave:" + usuario.getContrasena()+" ha sido creada";
           
           email.send("No", mensaje, "Registro exitoso", usuario.getEmail());
@@ -81,10 +80,10 @@ public class RegistroController implements Serializable{
     
     public void registrarAdmin(){
         try {
-            UsuarioEJB.create(usuario);
+            UsuWS.create(usuario);
             rol.setUsuario(usuario);
             rol.setUsuarioDni(usuario.getDni());
-            RolEJB.create(rol);
+            RolWS.create(rol);
         } catch (Exception e) {
         }
     }
@@ -94,7 +93,7 @@ public class RegistroController implements Serializable{
     }
     public  void modificarAdmin(){
         try {
-            UsuarioEJB.edit(usuario);
+            UsuWS.edit(usuario);
         } catch (Exception e) {
             System.out.print("Ayudaaa "+e.getMessage());
         }
@@ -102,7 +101,7 @@ public class RegistroController implements Serializable{
     }
     
         public  void Eliminar(){
-        UsuarioEJB.remove(usuario);
+        UsuWS.remove(usuario);
     }
     
 }

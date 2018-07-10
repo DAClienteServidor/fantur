@@ -10,9 +10,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import modelo.Entretenimiento;
+import service.EntretenimientoFacadeREST;
 
 /**
  *
@@ -23,7 +23,7 @@ import modelo.Entretenimiento;
 public class EntretenimientosController {
     
     @EJB
-    private EntretenimientoInterface ejbEnt;
+    private EntretenimientoFacadeREST EntWS;
     private List<Entretenimiento> entretenimiento;
     
     private Entretenimiento ent;
@@ -32,14 +32,14 @@ public class EntretenimientosController {
     public void init(){
 
         try {
-                    entretenimiento = ejbEnt.findAll();
+                    entretenimiento = EntWS.findAll();
                     ent = new Entretenimiento();
                     
             
         } catch (Exception e) {
         }
 
-        entretenimiento = ejbEnt.findAll();
+        entretenimiento = EntWS.findAll();
 
     }
     
@@ -66,8 +66,8 @@ public class EntretenimientosController {
         
     public void resgistrarNuevoEntretenimiento(){
         try {
-            ejbEnt.create(ent);
-            entretenimiento = ejbEnt.findAll();
+            EntWS.create(ent);
+            entretenimiento = EntWS.findAll();
         } catch (Exception e) {
         } 
     }
@@ -78,15 +78,15 @@ public class EntretenimientosController {
 
         public  void ModificarEntretenimiento() {
             try {
-                ejbEnt.edit(ent);
+                EntWS.edit(ent);
             } catch (Exception e) {
             }
         }
     
         public void EliminarEntretenimiento(){
             try {
-                ejbEnt.remove(ent);  
-                entretenimiento = ejbEnt.findAll();
+                EntWS.remove(ent);  
+                entretenimiento = EntWS.findAll();
             } catch (Exception e) {
             }
         }

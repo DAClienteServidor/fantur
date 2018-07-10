@@ -14,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import modelo.Alojamiento;
 import modelo.Pasaje;
+import service.AlojamientoFacadeREST;
 /**
  *
  * @author usuario
@@ -22,7 +23,7 @@ import modelo.Pasaje;
 @ViewScoped
 public class AlojamientosController {
     @EJB
-    private AlojamientoInterface ejbAlo;
+    private AlojamientoFacadeREST AlojWS;
     private List<Alojamiento> alojamiento;
     
     private Alojamiento aloj;
@@ -31,12 +32,12 @@ public class AlojamientosController {
     public void init(){
 
         try {
-            alojamiento = ejbAlo.findAll();
+            alojamiento = AlojWS.findAll();
             aloj = new Alojamiento();
         } catch (Exception e) {
         }
 
-        alojamiento = ejbAlo.findAll();
+        alojamiento = AlojWS.findAll();
 
     }
     
@@ -62,8 +63,8 @@ public class AlojamientosController {
         
     public void resgistrarNuevoAlojamiento(){
         try {
-            ejbAlo.create(aloj);
-            alojamiento = ejbAlo.findAll();
+            AlojWS.create(aloj);
+            alojamiento = AlojWS.findAll();
         } catch (Exception e) {
         } 
     }
@@ -78,15 +79,15 @@ public class AlojamientosController {
 
         public  void ModificarAlojamiento() {
             try {
-                ejbAlo.edit(aloj);
+                AlojWS.edit(aloj);
             } catch (Exception e) {
             }
         }
     
         public void EliminarAlojamiento(){
             try {
-                ejbAlo.remove(aloj);
-                alojamiento = ejbAlo.findAll();
+                AlojWS.remove(aloj);
+                alojamiento = AlojWS.findAll();
             } catch (Exception e) {
             }
         }

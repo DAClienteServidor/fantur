@@ -14,6 +14,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import modelo.Rol;
 import modelo.Usuario;
+import service.RolFacadeREST;
+import service.UsuarioFacadeREST;
 
 /**
  *
@@ -24,7 +26,7 @@ import modelo.Usuario;
 public class UsuariosController {
 
       @EJB
-    private UsuarioInterface ejbUsu;
+    private UsuarioFacadeREST UsuWS;
     private List<Usuario> usuario;
     
     private Usuario usu;
@@ -32,7 +34,7 @@ public class UsuariosController {
 
     
         @EJB
-    private RolInterface RolEJB;
+    private RolFacadeREST RolWS;
     private List<Rol> roles;
    
     
@@ -42,8 +44,8 @@ public class UsuariosController {
         
     @PostConstruct
     public void init(){
-        usuario = ejbUsu.findAll();
-        roles = RolEJB.findAll();
+        usuario = UsuWS.findAll();
+        roles = RolWS.findAll();
             usuario1 = new Usuario();
             rol = new Rol();
     }
@@ -87,11 +89,11 @@ public class UsuariosController {
            
     public void registrar() {
         try {
-          ejbUsu.create(usuario1);
+          UsuWS.create(usuario1);
           rol.setRol("usuario");
           rol.setUsuario(usuario1);
           rol.setUsuarioDni(usuario1.getDni());
-          RolEJB.create(rol);
+          RolWS.create(rol);
         } catch (Exception e) {
             System.out.print("No anda che" + e.getMessage());
         }
@@ -99,11 +101,11 @@ public class UsuariosController {
     
     public void registrarAdmin(){
         try {
-            ejbUsu.create(usuario1);
+            UsuWS.create(usuario1);
             rol.setUsuario(usuario1);
             rol.setUsuarioDni(usuario1.getDni());
-            RolEJB.create(rol);
-            usuario = ejbUsu.findAll();
+            RolWS.create(rol);
+            usuario = UsuWS.findAll();
         } catch (Exception e) {
         }
     }
@@ -113,7 +115,7 @@ public class UsuariosController {
     }
     public  void modificarAdmin(){
         try {
-            ejbUsu.edit(usuario1);
+            UsuWS.edit(usuario1);
             usuario1=null; 
         } catch (Exception e) {
         }
@@ -121,8 +123,8 @@ public class UsuariosController {
     }
     
         public  void eliminar(){
-        ejbUsu.remove(usuario1);
-        usuario = ejbUsu.findAll();
+        UsuWS.remove(usuario1);
+        usuario = UsuWS.findAll();
         
     }
     

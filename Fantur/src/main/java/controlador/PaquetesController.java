@@ -22,22 +22,28 @@ import modelo.Paquete;
 import modelo.Pasaje;
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import service.AlojamientoFacadeREST;
+import service.EntretenimientoFacadeREST;
+import service.PaqueteFacadeREST;
+import service.PasajeFacadeREST;
 
 @ManagedBean(name = "PaqController")
 @SessionScoped
 public class PaquetesController implements Serializable {
-
-    @EJB
-    private ContrataInterface ejbCon;
     
     @EJB
-    private PasajeInterface ejbPasaje;
-
-    @EJB
-    private PaqueteInterface ejbPaquete;
+    private PasajeFacadeREST PasWS;
     
     @EJB
-    private AlojamientoInterface ejbAlojamiento;
+    private EntretenimientoFacadeREST EntWS;
+        
+    @EJB
+    private AlojamientoFacadeREST AlojWS;
+
+    @EJB
+    private PaqueteFacadeREST PaqWS;
+    
+
     private List<Paquete> paquete;
     private Paquete paq;
     private Entretenimiento ent;
@@ -46,26 +52,21 @@ public class PaquetesController implements Serializable {
     
     private String consulta;
    
-   private List<Alojamiento> alojamientos;
-   private List<Entretenimiento> entretenimientos;
-   private List<Pasaje> pasajes;
-    
-    @EJB
-    private EntretenimientoInterface ejbEntretenimiento;
-    
-            
-
+    private List<Alojamiento> alojamientos;
+    private List<Entretenimiento> entretenimientos;
+    private List<Pasaje> pasajes;
+   
     private Paquete paquete1;
 
     
     @PostConstruct
     public void init() {
-        paquete = ejbPaquete.findAll();
+        paquete = PaqWS.findAll();
         //this.paq = null;
         paquete1 = new Paquete();
-        alojamientos = ejbAlojamiento.findAll();
-        entretenimientos = ejbEntretenimiento.findAll();
-        pasajes = ejbPasaje.findAll();
+        alojamientos = AlojWS.findAll();
+        entretenimientos = EntWS.findAll();
+        pasajes = PasWS.findAll();
     }
     
 
@@ -175,15 +176,15 @@ public class PaquetesController implements Serializable {
     
     //Actualizar tablas
     public void actualizarAlojamientos(){
-        this.alojamientos = ejbAlojamiento.findByAlgo(consulta);
+        this.alojamientos = AlojWS.findByAlgo(consulta);
     }
     
     public void actualizarPasajes(){
-        this.pasajes = ejbPasaje.findByAlgo(consulta);
+        this.pasajes = PasWS.findByAlgo(consulta);
     }
     
     public void actualizarEntretenimientos(){
-        this.entretenimientos = ejbEntretenimiento.findByAlgo(consulta);
+        this.entretenimientos = EntWS.findByAlgo(consulta);
     }
    
      public  void leerPaqSelct(Paquete paqueteSelec){
@@ -191,21 +192,21 @@ public class PaquetesController implements Serializable {
     }
     
     public void modificarPaquete(){
-        ejbPaquete.edit(paquete1);
+        PaqWS.edit(paquete1);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se Modifico correctamente"));    
         
     } 
     
     public void EliminarPaquete(){
-            ejbPaquete.remove(paquete1);
-            paquete = ejbPaquete.findAll();
+            PaqWS.remove(paquete1);
+            paquete = PaqWS.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se Elimino correctamente"));
      
     }
     
     public void nuevoPaquete() {  
-            ejbPaquete.create(paquete1);
-            paquete = ejbPaquete.findAll();
+            PaqWS.create(paquete1);
+            paquete = PaqWS.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se creo correctamente"));
             
         

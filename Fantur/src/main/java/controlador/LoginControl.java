@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import modelo.Usuario;
+import service.UsuarioFacadeREST;
 
 /**
  * Controla el login del usuario y el cerrar sesion
@@ -25,7 +26,7 @@ import modelo.Usuario;
 public class LoginControl implements Serializable {
 
     @EJB
-    private UsuarioInterface ejbUsuario;
+    private UsuarioFacadeREST UsuWS;
     private String usu;
     private String pas;
     private Usuario usuario;
@@ -68,7 +69,7 @@ public class LoginControl implements Serializable {
                 cerrarSesion();
             }
 
-            usuario = ejbUsuario.iniciarSesion(this.usu,this.pas);
+            usuario = UsuWS.iniciarSesion(this.usu,this.pas);
             if (usuario != null) {
                 context.getExternalContext().getSessionMap().put("usuario", usuario); //Crea una sesion
                 rol = usuario.getRol().getRol();
